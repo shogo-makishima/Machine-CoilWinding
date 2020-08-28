@@ -13,7 +13,7 @@ void setup() {
     // TOUCH.InitTouch();
     // TOUCH.setPrecision(PREC_MEDIUM);
 
-    PAGES.ChangePageFormName("MainPage");
+    PAGES.ChangePageFormName("SimplePage");
 }
 
 void loop() {

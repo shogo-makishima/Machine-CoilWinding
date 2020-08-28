@@ -3,7 +3,7 @@
 
 #include "Colors.h"
 
-#define MAX_OBJECTS_ON_PAGE 16
+#define MAX_OBJECTS_ON_PAGE 32
 #define MAX_PAGES 8
 
 #define BACKGDOUND BLACK
