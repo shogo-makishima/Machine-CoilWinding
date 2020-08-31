@@ -29,7 +29,7 @@ class SpeedControlPage : public Page {
         0,
     };
 
-    Text separteSymbol = { " " };
+    Text separteSymbol = { "." };
 
     public:
     UIObject* localObjects[MAX_OBJECTS_ON_PAGE] = {
@@ -64,26 +64,26 @@ class SpeedControlPage : public Page {
             SetSpeedButtonsPress(2, false);
         }),
 
-        // Separate symbol
-        new UITextPanel("X+", { 216, 136, 48, 48 }, { 12, 12 }, separteSymbol, BLACK, WHITE_L_80),
-
         // TEXT SYMBOL 4
-        new UIButton("X+", { 288, 72, 48, 48 }, { 12, 12 }, "+", BLACK, WHITE_L_80, WHITE_L_5, [] {
+        new UIButton("X+", { 216, 72, 48, 48 }, { 12, 12 }, "+", BLACK, WHITE_L_80, WHITE_L_5, [] {
             SetSpeedButtonsPress(3, true);
         }),
-        new UITextPanel("X+", { 288, 136, 48, 48 }, { 12, 12 }, uiSymbols[3], BLACK, WHITE_L_80),
-        new UIButton("X+", { 288, 200, 48, 48 }, { 12, 12 }, "-", BLACK, WHITE_L_80, WHITE_L_5, [] {
+        new UITextPanel("X+", { 216, 136, 48, 48 }, { 12, 12 }, uiSymbols[3], BLACK, WHITE_L_80),
+        new UIButton("X+", { 216, 200, 48, 48 }, { 12, 12 }, "-", BLACK, WHITE_L_80, WHITE_L_5, [] {
             SetSpeedButtonsPress(3, false);
         }),
 
         // TEXT SYMBOL 5
-        new UIButton("X+", { 360, 72, 48, 48 }, { 12, 12 }, "+", BLACK, WHITE_L_80, WHITE_L_5, [] {
+        new UIButton("X+", { 288, 72, 48, 48 }, { 12, 12 }, "+", BLACK, WHITE_L_80, WHITE_L_5, [] {
             SetSpeedButtonsPress(4, true);
         }),
-        new UITextPanel("X+", { 360, 136, 48, 48 }, { 12, 12 }, uiSymbols[4], BLACK, WHITE_L_80),
-        new UIButton("X+", { 360, 200, 48, 48 }, { 12, 12 }, "-", BLACK, WHITE_L_80, WHITE_L_5, [] {
+        new UITextPanel("X+", { 288, 136, 48, 48 }, { 12, 12 }, uiSymbols[4], BLACK, WHITE_L_80),
+        new UIButton("X+", { 288, 200, 48, 48 }, { 12, 12 }, "-", BLACK, WHITE_L_80, WHITE_L_5, [] {
             SetSpeedButtonsPress(4, false);
         }),
+
+        // Separate symbol
+        new UITextPanel("X+", { 360, 136, 48, 48 }, { 12, 12 }, separteSymbol, BLACK, WHITE_L_80),
 
         // TEXT SYMBOL 6
         new UIButton("X+", { 432, 72, 48, 48 }, { 12, 12 }, "+", BLACK, WHITE_L_80, WHITE_L_5, [] {
@@ -149,8 +149,8 @@ class SpeedControlPage : public Page {
         if (i == 0) UIObjects[2]->Repaint();
         else if (i == 1) UIObjects[5]->Repaint();
         else if (i == 2) UIObjects[8]->Repaint();
-        else if (i == 3) UIObjects[12]->Repaint();
-        else if (i == 4) UIObjects[15]->Repaint();
+        else if (i == 3) UIObjects[11]->Repaint();
+        else if (i == 4) UIObjects[14]->Repaint();
         else if (i == 5) UIObjects[18]->Repaint();
     }
 };
