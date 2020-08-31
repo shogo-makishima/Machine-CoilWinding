@@ -115,24 +115,21 @@ class SpeedControlPage : public Page {
     }
 
     void Start() override {
+        if (VFirstLoad) {
+            LoadVSpeedInt();
+            VFirstLoad = !VFirstLoad;
+        }
+
         RepaintAll();
 
-        LoadVSpeedInt();
-        for (int i = 0; i < 6; i++) uiSymbols->SetText(VSpeed[i]);
+        for (int i = 0; i < 6; i++)
+            UpdateTextByIndex(i);
     }
 
     void Update() override {
         for (int i = 0; i < 6; i++) {
-            if (lastUiInt[i] != VSpeed[i]) {
-                uiSymbols[i].SetText(VSpeed[i]);
-
-                if (i == 0) UIObjects[2]->Repaint();
-                else if (i == 1) UIObjects[5]->Repaint();
-                else if (i == 2) UIObjects[8]->Repaint();
-                else if (i == 3) UIObjects[12]->Repaint();
-                else if (i == 4) UIObjects[15]->Repaint();
-                else if (i == 5) UIObjects[18]->Repaint();
-            }
+            if (lastUiInt[i] != VSpeed[i])
+                UpdateTextByIndex(i);
 
             lastUiInt[i] = VSpeed[i];
         }
@@ -141,7 +138,21 @@ class SpeedControlPage : public Page {
             if (UIObjects[i] == NULL) break;
             UIObjects[i]->Update();
         }
-    }    
+    }
+
+    void UpdateTextByIndex(int i) {
+        uiSymbols[i].SetText(VSpeed[i]);
+        RepaintTextByIndex(i);
+    }
+
+    void RepaintTextByIndex(int i) {
+        if (i == 0) UIObjects[2]->Repaint();
+        else if (i == 1) UIObjects[5]->Repaint();
+        else if (i == 2) UIObjects[8]->Repaint();
+        else if (i == 3) UIObjects[12]->Repaint();
+        else if (i == 4) UIObjects[15]->Repaint();
+        else if (i == 5) UIObjects[18]->Repaint();
+    }
 };
 
 #endif

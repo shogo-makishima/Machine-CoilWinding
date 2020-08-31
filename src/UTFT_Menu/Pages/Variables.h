@@ -8,6 +8,7 @@ void ChangeCounter(bool direction) {
     Counter += (direction) ? 1 : -1;
 }
 
+static bool VFirstLoad = true;
 static long int VSpeedINT = 0; // size = 4 byte
 
 static int VSpeed[6] = { 0, 0, 0, 0, 0, 0, };
@@ -24,11 +25,13 @@ void ClearVSpeed() {
 }
 
 void LoadVSpeedInt() {
+    Serial.println("[LOAD] VSpeed");
     eeprom_read_block((void*)&VSpeed, (const void*)&VSpeed_ADDR, sizeof(VSpeed));
     EnterVSpeedInt();
 }
 
 void SaveVSpeedInt() {
+    Serial.println("[SAVE] VSpeed");
     eeprom_write_block((void*)&VSpeed, (const void*)&VSpeed_ADDR, sizeof(VSpeed));
 }
 
