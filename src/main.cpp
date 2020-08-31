@@ -1,19 +1,23 @@
 #include <Arduino.h>
 
-#include "Menu/Menus.h"
+#include "UTFT_Menu/Menus.h"
 
 Timer updateTimer = Timer(10, [] {
-    PAGES.UpdateCurrentPage();
+    PAGES::UpdateCurrentPage();
 });
 
 void setup() {
     Serial.begin(9600);
-    
-  	GLCD.InitLCD();                                    // инициируем дисплей (в качестве параметра данной функции можно указать ориентацию дисплея: PORTRAIT или LANDSCAPE), по умолчанию LANDSCAPE - горизонтальная ориентация
-    // TOUCH.InitTouch();
-    // TOUCH.setPrecision(PREC_MEDIUM);
+    Serial.println(TUTORIAL);
 
-    PAGES.ChangePageFormName("SimplePage");
+    PAGES::Init(PAGES_LIST);
+
+  	GLCD.InitLCD();                                    // инициируем дисплей (в качестве параметра данной функции можно указать ориентацию дисплея: PORTRAIT или LANDSCAPE), по умолчанию LANDSCAPE - горизонтальная ориентация
+    
+    TOUCH.InitTouch();
+    TOUCH.setPrecision(PREC_MEDIUM);
+
+    PAGES::ChangePageFormName("MainPage");
 }
 
 void loop() {
@@ -29,8 +33,8 @@ void loop() {
         if (command[0] == 'c') {
             command = command.substring(2);
 
-            PAGES.ChangePageFormName(command.c_str());
-            Serial.println("[PAGE] " + String(PAGES.page->Name) + " " + command);
+            PAGES::ChangePageFormName(command.c_str());
+            Serial.println("[PAGE] " + String(PAGES::page->Name) + " " + command);
         } else if (command[0] == 't') {
             command = command.substring(2);
 
