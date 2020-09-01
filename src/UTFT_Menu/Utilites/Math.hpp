@@ -13,6 +13,12 @@ namespace Math {
         else if (value <= min) return min;
         else return value;
     }
+
+    static int CycleClamp(float min, float max, float value) {
+        if (value > max) return min;
+        else if (value < min) return max;
+        else return value;
+    }
 }
 
 #endif

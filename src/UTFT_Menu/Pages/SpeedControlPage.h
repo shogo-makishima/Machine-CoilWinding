@@ -6,7 +6,7 @@
 
 void SetSpeedButtonsPress(int index, bool direction) {
     VSpeed[index] = VSpeed[index] + (1 * (direction) ? 1 : -1);
-    VSpeed[index] = Math::Clamp(0, 9, VSpeed[index]);
+    VSpeed[index] = Math::CycleClamp(0, 9, VSpeed[index]);
 }
 
 Text uiSymbols[6] = { 
@@ -114,8 +114,7 @@ class SpeedControlPage : public Page {
 
         RepaintAll();
 
-        for (int i = 0; i < 6; i++)
-            UpdateTextByIndex(i);
+        for (int i = 0; i < 6; i++) UpdateTextByIndex(i);
     }
 
     void Update() override {
@@ -133,8 +132,12 @@ class SpeedControlPage : public Page {
     }
 
     void UpdateTextByIndex(int i) {
-        uiSymbols[i].SetText(VSpeed[i]);
+        SetTextByIndex(i);
         RepaintTextByIndex(i);
+    }   
+
+    void SetTextByIndex(int i) {
+        uiSymbols[i].SetText(VSpeed[i]);
     }
 
     void RepaintTextByIndex(int i) {
