@@ -12,9 +12,11 @@
 #define DEFAULT_FONT Ubuntu
 
 // STRIGNS
-#define ENTER "Enter"
-#define CLEAR "Clear"
-#define SPEED "Speed"
+#define ENTER         "Enter"
+#define CLEAR         "Clear"
+#define SPEED         "Speed"
+#define MODE          "Mode"
+#define DIRECTION     "+ | -"
 
 #define TUTORIAL "<----------->\nCommands:\n1. t X Y - эмуляция touchsreen'а.\n2. c N - сменить меню по его названию.\n<----------->\n\n"
 

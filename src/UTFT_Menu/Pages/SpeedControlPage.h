@@ -20,15 +20,7 @@ Text uiSymbols[6] = {
 
 class SpeedControlPage : public Page {
     private:
-    int lastUiInt[6] = { 
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-    };
-
+    int lastUiInt[6] = {  0, 0, 0, 0, 0, };
     Text separteSymbol = { "." };
 
     public:
@@ -94,7 +86,7 @@ class SpeedControlPage : public Page {
             SetSpeedButtonsPress(5, false);
         }),
         
-        new UIButton("ENTER", { 0, 264, 480, 48 }, { 12, 12 }, ENTER, BLACK, WHITE_L_80, WHITE_L_5, [] { 
+        new UIButton("ENTER", { 0, 264, 480, 48 }, { 12, 12 }, ENTER, BLACK, WHITE_L_80, WHITE_L_5, []{}, [] { 
             EnterVSpeedInt();
             SaveVSpeedInt();
             PAGES::ChangePageFormName("MainPage");

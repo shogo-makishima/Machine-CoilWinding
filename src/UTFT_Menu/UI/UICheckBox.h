@@ -1,11 +1,9 @@
-#ifndef _UIBUTTON_H_
-#define _UIBUTTON_H_
+#ifndef _UICHECKBOX_H_
+#define _UICHECKBOX_H_
 
 #include "UTFT_Menu/Menus.h"
 
-typedef void(*callbackButtonPress)();
-
-class UIButton : public UIObject {
+class UICheckBox : public UIObject {
     private:
     public:
     char* Name;
@@ -15,16 +13,15 @@ class UIButton : public UIObject {
     uint16_t Color;
     uint16_t PressColor;
     uint16_t ColorText;
-    callbackButtonPress Press;
-    callbackButtonPress Release;
     bool b_lastTouch = false;
-    bool isPress = false;
+    bool &variable_ref;
 
-    UIButton(char* getName, Rect getRect, Vector2D getTextRect, char* getText, uint16_t getColorText, uint16_t getColor, uint16_t getPressColor, callbackButtonPress callback = []{Serial.println("PRESS!");}, callbackButtonPress callbackRelease = []{}) : Name(getName), rect(getRect), textRect(getTextRect), text(getText), ColorText(getColorText), Color(getColor), PressColor(getPressColor), Press(callback), Release(callbackRelease) {}
+    UICheckBox(char* getName, Rect getRect, Vector2D getTextRect, char* getText, uint16_t getColorText, uint16_t getColor, uint16_t getPressColor, bool &variable) : Name(getName), rect(getRect), textRect(getTextRect), text(getText), ColorText(getColorText), Color(getColor), PressColor(getPressColor), variable_ref(variable) {}
 
     void Repaint() override {
-        if (isPress) GLCD.setColor(PressColor);
+        if (variable_ref) GLCD.setColor(PressColor);
         else GLCD.setColor(Color);
+
         GLCD.fillRect(rect.x, rect.y, rect.x + rect.w, rect.y + rect.h);
         
         GLCD.setColor(ColorText);
@@ -49,15 +46,9 @@ class UIButton : public UIObject {
     void Update() override {
         bool b_currentTouch = OnClick();
         if (b_currentTouch && !b_lastTouch) {
-            isPress = true;
+            variable_ref = !variable_ref;
             Repaint();
-            Press();
-        } else if (!b_currentTouch && b_lastTouch) {
-            isPress = false;
-            Repaint();
-            Release();
         }
-
         b_lastTouch = b_currentTouch;
     }
 };

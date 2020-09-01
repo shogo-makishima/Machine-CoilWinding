@@ -10,7 +10,7 @@ class TouchEmulator {
     public:
     int x = 0, y = 0;
 
-    Timer touchTimer = Timer(10, [] {
+    Timer touchTimer = Timer(50, [] {
         b_isTouch = false;
     });
 

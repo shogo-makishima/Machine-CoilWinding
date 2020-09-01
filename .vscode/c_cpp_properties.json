@@ -6,10 +6,10 @@
         {
             "name": "Win32",
             "includePath": [
-                "c:/Users/Прототип/Documents/PlatformIO/Projects/Arduino_Menu/include",
-                "c:/Users/Прототип/Documents/PlatformIO/Projects/Arduino_Menu/src",
+                "c:/Users/Прототип/Documents/GitHub/Arduino_Menu/include",
+                "c:/Users/Прототип/Documents/GitHub/Arduino_Menu/src",
                 "C:/.platformio/packages/framework-arduino-avr/libraries/EEPROM/src",
-                "c:/Users/Прототип/Documents/PlatformIO/Projects/Arduino_Menu/lib/Adafruit_GFX",
+                "c:/Users/Прототип/Documents/GitHub/Arduino_Menu/lib/Adafruit_GFX",
                 "C:/.platformio/packages/framework-arduino-avr/libraries/SPI/src",
                 "C:/.platformio/packages/framework-arduino-avr/cores/arduino",
                 "C:/.platformio/packages/framework-arduino-avr/variants/mega",
@@ -22,10 +22,10 @@
             "browse": {
                 "limitSymbolsToIncludedHeaders": true,
                 "path": [
-                    "c:/Users/Прототип/Documents/PlatformIO/Projects/Arduino_Menu/include",
-                    "c:/Users/Прототип/Documents/PlatformIO/Projects/Arduino_Menu/src",
+                    "c:/Users/Прототип/Documents/GitHub/Arduino_Menu/include",
+                    "c:/Users/Прототип/Documents/GitHub/Arduino_Menu/src",
                     "C:/.platformio/packages/framework-arduino-avr/libraries/EEPROM/src",
-                    "c:/Users/Прототип/Documents/PlatformIO/Projects/Arduino_Menu/lib/Adafruit_GFX",
+                    "c:/Users/Прототип/Documents/GitHub/Arduino_Menu/lib/Adafruit_GFX",
                     "C:/.platformio/packages/framework-arduino-avr/libraries/SPI/src",
                     "C:/.platformio/packages/framework-arduino-avr/cores/arduino",
                     "C:/.platformio/packages/framework-arduino-avr/variants/mega",

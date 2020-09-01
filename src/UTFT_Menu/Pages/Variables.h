@@ -3,10 +3,14 @@
 
 #include "EEPROM.h"
 
-static int Counter = 0;
-void ChangeCounter(bool direction) {
-    Counter += (direction) ? 1 : -1;
+static bool VDirection = true;
+
+static int VCounter = 0;
+void ChangeVCounter() {
+    VCounter += (VDirection) ? 1 : -1;
 }
+
+static bool VMode = true;
 
 static bool VFirstLoad = true;
 static long int VSpeedINT = 0; // size = 4 byte

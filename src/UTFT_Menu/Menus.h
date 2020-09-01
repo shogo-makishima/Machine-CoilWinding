@@ -29,6 +29,7 @@ static TouchEmulator TOUCH = TouchEmulator();
 #include "UI/UIPanel.hpp"
 #include "UI/UIButton.hpp"
 #include "UI/UITextPanel.hpp"
+#include "UI/UICheckBox.h"
 
 #include "Pages/Page.h"
 
