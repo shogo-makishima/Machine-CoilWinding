@@ -1,5 +1,45 @@
 #include <Arduino.h>
+#include <Stepper/src/Stepper.h> // Подключение библиотеки для работы с ШД
 
+#include "AccelStepper/src/AccelStepper.h"
+#include "AccelStepper/src/MultiStepper.h"
+
+#define STEPS 200 // Количество шагов на один оборот
+#define SPEED 200
+#define PAUSE 10
+
+// Создание экземпляра класса для работы с ШД. казываем кол-во шагов на один оборот
+// и пины Arduino, к которым подключены обмотки двигатедя
+AccelStepper engine_1(AccelStepper::FULL4WIRE, 11, 10, 9, 8);
+AccelStepper engine_2(AccelStepper::FULL4WIRE, 7, 6, 5, 4);
+
+// Up to 10 steppers can be handled as a group by MultiStepper
+MultiStepper engines;
+
+long positions[2] = { 0, 0 };
+
+void setup() {
+    Serial.begin(9600);
+
+    engine_1.setMaxSpeed(SPEED); // Устанавливаем скорость вращения об./мин.
+    engine_2.setMaxSpeed(SPEED); // Устанавливаем скорость вращения об./мин.
+
+    engines.addStepper(engine_1);
+    engines.addStepper(engine_2);
+}
+
+void loop() {
+    Serial.println(positions[0] / STEPS);
+
+    positions[0] = STEPS; positions[1] = STEPS;
+
+    engines.move(positions);
+    engines.runSpeedToPosition();
+
+    delay(PAUSE); // Ждём одну секунду
+}
+
+/*
 #include "UTFT_Menu/Menus.h"
 
 Timer updateTimer = Timer(10, [] {
@@ -48,6 +88,7 @@ void loop() {
 
     // Serial.println(String(TOUCH.getX()) + ", " + String(TOUCH.getY()));
 }
+*/
 
 /*
 int counter = 0;
