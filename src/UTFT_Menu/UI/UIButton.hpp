@@ -23,20 +23,17 @@ class UIButton : public UIObject {
     UIButton(char* getName, Rect getRect, Vector2D getTextRect, char* getText, uint16_t getColorText, uint16_t getColor, uint16_t getPressColor, callbackButtonPress callback = []{Serial.println("PRESS!");}, callbackButtonPress callbackRelease = []{}) : Name(getName), rect(getRect), textRect(getTextRect), text(getText), ColorText(getColorText), Color(getColor), PressColor(getPressColor), Press(callback), Release(callbackRelease) {}
 
     void Repaint() override {
-        if (isPress) GLCD.setColor(PressColor);
-        else GLCD.setColor(Color);
-        GLCD.fillRect(rect.x, rect.y, rect.x + rect.w, rect.y + rect.h);
+        if (isPress) GLCD.fillRect(rect.x, rect.y, rect.w, rect.h, PressColor);
+        else GLCD.fillRect(rect.x, rect.y, rect.w, rect.h, Color);
         
-        GLCD.setColor(ColorText);
-        GLCD.setBackColor(VGA_TRANSPARENT);
-        GLCD.setFont(DEFAULT_FONT);
+        GLCD.setTextColor(ColorText);
         
-        GLCD.print(text, rect.x + textRect.x, rect.y + textRect.y);
+        GLCD.setCursor(rect.x + textRect.x, rect.y + textRect.y);
+        GLCD.print(text);
     }
 
     void Move(int x, int y) override {
-        GLCD.setColor(BACKGDOUND);
-        GLCD.fillRect(rect.x, rect.y, rect.x + rect.w, rect.y + rect.h);
+        GLCD.fillRect(rect.x, rect.y, rect.w, rect.h, BACKGDOUND);
 
         rect.x = x; rect.y = y;
         Repaint();

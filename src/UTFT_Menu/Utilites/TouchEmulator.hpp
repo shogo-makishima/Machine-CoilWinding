@@ -2,9 +2,13 @@
 #define _TOUCHEMULATOR_H_
 
 #include "Stream.h"
-#include "Timer.h"
+#include "UTFT_Menu/Menus.h"
+
+#define TOUCH_COUNT 8
 
 static bool b_isTouch = false;
+static int i_touchTimer = 0;
+static bool b_lastState = false;
 
 class TouchEmulator {
     public:
@@ -17,28 +21,31 @@ class TouchEmulator {
     void InitTouch() {}
     void setPrecision(int value) {}
 
-    void ParseTouch(String touch) {
-        String t_x = "";
-        String t_y = "";
-        bool t_isX = true;
+    void CheckTouch(TSPoint point) {
+        x = GLCD.LCD_HEIGHT - point.x;
+        y = GLCD.LCD_WIDTH - point.y;
 
-        for (char chr : touch) {
-            if (t_isX) t_isX = !(t_isX && chr == ' ');
+        b_isTouch = !(!Math::InRange(0, GLCD.LCD_HEIGHT, x) && !Math::InRange(0, GLCD.LCD_WIDTH, y));
 
-            if (t_isX) t_x += chr;
-            else if (!t_isX) t_y += chr;
+        if (b_lastState != b_isTouch) {
+            i_touchTimer++;
+            if (i_touchTimer >= TOUCH_COUNT) {
+                b_lastState = b_isTouch;
+                b_isTouch = !b_isTouch;
+                i_touchTimer = 0;
+            }
         }
-
-        x = t_x.toInt();
-        y = t_y.toInt();
-
-        b_isTouch = true;
-        touchTimer.Reset();
     }
 
     int getX() { return x; }
     int getY() { return y; }
-    void Update() { touchTimer.Update(); }
+    void Update() {
+        TSPoint point = GLCD.getPoint();
+        GLCD.normalizeTsPoint(point);
+
+        CheckTouch(point);
+        // touchTimer.Update();
+    }
 };
 
 #endif

@@ -1,5 +1,5 @@
-#ifndef _MATH_H_
-#define _MATH_H_
+#ifndef _MATHC_H_
+#define _MATHC_H_
 
 namespace Math {
     static int Clamp(int min, int max, int value) {
@@ -18,6 +18,10 @@ namespace Math {
         if (value > max) return min;
         else if (value < min) return max;
         else return value;
+    }
+
+    static bool InRange(int min, int max, int value) {
+        return (value > min && value < max);
     }
 }
 

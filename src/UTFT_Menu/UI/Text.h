@@ -18,8 +18,7 @@ class Text {
 
     void SetText(float getText) { 
         char array[32];
-        dtostrf(getText, 6, 2, array);
-
+        // dtostrf(getText, 6, 2, array);
         text = array;
     }
 

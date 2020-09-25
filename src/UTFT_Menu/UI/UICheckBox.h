@@ -19,21 +19,16 @@ class UICheckBox : public UIObject {
     UICheckBox(char* getName, Rect getRect, Vector2D getTextRect, char* getText, uint16_t getColorText, uint16_t getColor, uint16_t getPressColor, bool &variable) : Name(getName), rect(getRect), textRect(getTextRect), text(getText), ColorText(getColorText), Color(getColor), PressColor(getPressColor), variable_ref(variable) {}
 
     void Repaint() override {
-        if (variable_ref) GLCD.setColor(PressColor);
-        else GLCD.setColor(Color);
-
-        GLCD.fillRect(rect.x, rect.y, rect.x + rect.w, rect.y + rect.h);
+        if (variable_ref) GLCD.fillRect(rect.x, rect.y, rect.w, rect.h, PressColor);
+        else GLCD.fillRect(rect.x, rect.y, rect.w, rect.h, Color);
         
-        GLCD.setColor(ColorText);
-        GLCD.setBackColor(VGA_TRANSPARENT);
-        GLCD.setFont(DEFAULT_FONT);
-        
-        GLCD.print(text, rect.x + textRect.x, rect.y + textRect.y);
+        GLCD.setTextColor(ColorText);
+        GLCD.setCursor(rect.x + textRect.x, rect.y + textRect.y);
+        GLCD.print(text);
     }
 
     void Move(int x, int y) override {
-        GLCD.setColor(BACKGDOUND);
-        GLCD.fillRect(rect.x, rect.y, rect.x + rect.w, rect.y + rect.h);
+        GLCD.fillRect(rect.x, rect.y, rect.w, rect.h, BACKGDOUND);
 
         rect.x = x; rect.y = y;
         Repaint();

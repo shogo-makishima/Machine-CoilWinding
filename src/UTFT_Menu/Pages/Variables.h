@@ -1,7 +1,7 @@
 #ifndef _VARIABLES_H_
 #define _VARIABLES_H_
 
-#include "EEPROM.h"
+// #include "EEPROM.h"
 
 static bool VDirection = true;
 
@@ -16,7 +16,7 @@ static bool VFirstLoad = true;
 static long int VSpeedINT = 0; // size = 4 byte
 
 static int VSpeed[6] = { 0, 0, 0, 0, 0, 0, };
-int EEMEM VSpeed_ADDR[6];
+// int EEMEM VSpeed_ADDR[6];
 
 void EnterVSpeedInt() {
     Serial.println("[VSPEED] { " + String(VSpeed[0]) + ", " + String(VSpeed[1]) + ", ... }");
@@ -30,13 +30,13 @@ void ClearVSpeed() {
 
 void LoadVSpeedInt() {
     Serial.println("[LOAD] VSpeed");
-    eeprom_read_block((void*)&VSpeed, (const void*)&VSpeed_ADDR, sizeof(VSpeed));
+    // eeprom_read_block((void*)&VSpeed, (const void*)&VSpeed_ADDR, sizeof(VSpeed));
     EnterVSpeedInt();
 }
 
 void SaveVSpeedInt() {
     Serial.println("[SAVE] VSpeed");
-    eeprom_write_block((void*)&VSpeed, (const void*)&VSpeed_ADDR, sizeof(VSpeed));
+    // eeprom_write_block((void*)&VSpeed, (const void*)&VSpeed_ADDR, sizeof(VSpeed));
 }
 
 #endif

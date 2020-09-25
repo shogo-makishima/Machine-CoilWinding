@@ -114,7 +114,7 @@ class SpeedControlPage : public Page {
 
         RepaintAll();
 
-        for (int i = 0; i < 6; i++) UpdateTextByIndex(i);
+        // for (int i = 0; i < 6; i++) UpdateTextByIndex(i);
     }
 
     void Update() override {

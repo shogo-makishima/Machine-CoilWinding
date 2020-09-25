@@ -1,4 +1,21 @@
 #include <Arduino.h>
+
+#include "UTFT_Menu/Menus.h"
+
+Timer updateTimer = Timer(10, [] {
+    PAGES::UpdateCurrentPage();
+});
+
+void setup() {
+    INIT();
+}
+
+void loop() {
+    updateTimer.Update();
+    TOUCH.Update();
+}
+/*
+
 #include <Stepper/src/Stepper.h> // Подключение библиотеки для работы с ШД
 
 #include "AccelStepper/src/AccelStepper.h"
@@ -39,6 +56,7 @@ void loop() {
     delay(PAUSE); // Ждём одну секунду
 }
 
+*/
 /*
 #include "UTFT_Menu/Menus.h"
 
