@@ -40,7 +40,7 @@ class UICheckBox : public UIObject {
 
     void Update() override {
         bool b_currentTouch = OnClick();
-        if (b_currentTouch && !b_lastTouch) {
+        if (!b_currentTouch && b_lastTouch) {
             variable_ref = !variable_ref;
             Repaint();
         }

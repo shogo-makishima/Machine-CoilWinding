@@ -3,6 +3,13 @@
 // #include "Libraries/UTFT/UTFT.h"
 // #include "Libraries/URTouch/URTouch.h"
 
+#include "platform.h"
+
+#undef min
+#undef max
+
+#include "functional"
+
 #include "SPI.h"
 #include "Libraries/Adafruit_GFX/Adafruit_GFX.h"
 #include "Libraries/Waveshare_ILI9486/Waveshare_ILI9486.h"

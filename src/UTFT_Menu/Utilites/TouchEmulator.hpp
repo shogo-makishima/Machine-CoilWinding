@@ -4,7 +4,7 @@
 #include "Stream.h"
 #include "UTFT_Menu/Menus.h"
 
-#define TOUCH_COUNT 8
+#define TOUCH_COUNT 4
 
 static bool b_isTouch = false;
 static int i_touchTimer = 0;
@@ -25,15 +25,16 @@ class TouchEmulator {
         x = GLCD.LCD_HEIGHT - point.x;
         y = GLCD.LCD_WIDTH - point.y;
 
-        b_isTouch = !(!Math::InRange(0, GLCD.LCD_HEIGHT, x) && !Math::InRange(0, GLCD.LCD_WIDTH, y));
+        bool t_isTouch = !(!Math::InRange(0, GLCD.LCD_HEIGHT, x) && !Math::InRange(0, GLCD.LCD_WIDTH, y));
 
-        if (b_lastState != b_isTouch) {
+        if (!t_isTouch) {
             i_touchTimer++;
             if (i_touchTimer >= TOUCH_COUNT) {
-                b_lastState = b_isTouch;
-                b_isTouch = !b_isTouch;
-                i_touchTimer = 0;
+                b_isTouch = t_isTouch;
             }
+        } else {
+            b_isTouch = t_isTouch;
+            i_touchTimer = 0;
         }
     }
 

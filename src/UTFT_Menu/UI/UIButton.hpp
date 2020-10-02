@@ -3,7 +3,6 @@
 
 #include "UTFT_Menu/Menus.h"
 
-typedef void(*callbackButtonPress)();
 
 class UIButton : public UIObject {
     private:
@@ -15,12 +14,12 @@ class UIButton : public UIObject {
     uint16_t Color;
     uint16_t PressColor;
     uint16_t ColorText;
-    callbackButtonPress Press;
-    callbackButtonPress Release;
+    std::function<void()> Press;
+    std::function<void()> Release;
     bool b_lastTouch = false;
     bool isPress = false;
 
-    UIButton(char* getName, Rect getRect, Vector2D getTextRect, char* getText, uint16_t getColorText, uint16_t getColor, uint16_t getPressColor, callbackButtonPress callback = []{Serial.println("PRESS!");}, callbackButtonPress callbackRelease = []{}) : Name(getName), rect(getRect), textRect(getTextRect), text(getText), ColorText(getColorText), Color(getColor), PressColor(getPressColor), Press(callback), Release(callbackRelease) {}
+    UIButton(char* getName, Rect getRect, Vector2D getTextRect, char* getText, uint16_t getColorText, uint16_t getColor, uint16_t getPressColor, std::function<void()> callback = []{Serial.println("PRESS!");}, std::function<void()> callbackRelease = []{}) : Name(getName), rect(getRect), textRect(getTextRect), text(getText), ColorText(getColorText), Color(getColor), PressColor(getPressColor), Press(callback), Release(callbackRelease) {}
 
     void Repaint() override {
         if (isPress) GLCD.fillRect(rect.x, rect.y, rect.w, rect.h, PressColor);
