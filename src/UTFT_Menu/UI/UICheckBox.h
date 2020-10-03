@@ -35,13 +35,14 @@ class UICheckBox : public UIObject {
     }
 
     bool OnClick() {
-        return b_isTouch && (rect.x <= TOUCH.getX() && rect.x + rect.w > TOUCH.getX() && rect.y <= TOUCH.getY() && rect.y + rect.h > TOUCH.getY());
+        return b_isTouch && (rect.x <= TOUCH.getX() && rect.x + rect.w >= TOUCH.getX() && rect.y <= TOUCH.getY() && rect.y + rect.h >= TOUCH.getY());
     }
 
     void Update() override {
         bool b_currentTouch = OnClick();
         if (!b_currentTouch && b_lastTouch) {
             variable_ref = !variable_ref;
+            Serial.println("REPAINT CHECK BOX! " + String(TOUCH.getX()));
             Repaint();
         }
         b_lastTouch = b_currentTouch;
