@@ -3,24 +3,24 @@
 
 class Text {
     public: 
-    char* text;
+    char text[16];
 
-    Text(char* getText) : text(getText) {}
+    Text(char getText[16]) {
+        strcpy(text, getText);
+    }
 
-    void SetText(char* getText) { text = getText; }
+    void SetText(char* getText) { strcpy(text, getText); }
 
     void SetText(int getText) { 
-        char array[32];
+        char array[16];
         itoa(getText, array, 10);
-
-        text = array;
+        strcpy(text, array);
     }
 
     void SetText(float getText) { 
-        char array[32];
-        dtostrf(getText, 6, 2, array);
-
-        text = array;
+        char array[16];
+        // dtostrf(getText, 6, 2, array);
+        strcpy(text, array);
     }
 
     int GetInt() { return atoi(text); }

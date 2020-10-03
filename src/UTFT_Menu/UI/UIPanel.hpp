@@ -13,13 +13,11 @@ class UIPanel : public UIObject {
     UIPanel(char* getName, Rect getRect, uint16_t getColor) : Name(getName), rect(getRect), Color(getColor) {}
 
     void Repaint() override {
-        GLCD.setColor(Color);
-        GLCD.fillRect(rect.x, rect.y, rect.x + rect.w, rect.y + rect.h);
+        GLCD.fillRect(rect.x, rect.y, rect.w, rect.h, Color);
     }
 
     void Move(int x, int y) override {
-        GLCD.setColor(BACKGDOUND);
-        GLCD.fillRect(rect.x, rect.y, rect.x + rect.w, rect.y + rect.h);
+        GLCD.fillRect(rect.x, rect.y, rect.w, rect.h, BACKGDOUND);
 
         rect.x = x; rect.y = y;
         Repaint();

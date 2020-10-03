@@ -21,7 +21,7 @@ class Page {
     }
 
     void RepaintAll() {
-        GLCD.fillScr(BACKGDOUND);
+        GLCD.fillScreen(BACKGDOUND);
 
         for (int i = 0; i < MAX_OBJECTS_ON_PAGE; i++) {
             if (UIObjects[i] == NULL) break;

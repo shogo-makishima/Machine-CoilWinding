@@ -9,17 +9,17 @@ class MainPage : public Page {
     Text counterText = { "0" };
     int lastCounter = 0;
 
-    Timer axisUpdate = Timer(100, [] {ChangeVCounter();});
+    Timer axisUpdate = Timer(1000, [] {ChangeVCounter();});
 
     public:
     UIObject* localObjects[MAX_OBJECTS_ON_PAGE] = {
         new UIButton("ENTER", { 0, 0, 216, 48 }, { 12, 12 }, SPEED, BLACK, WHITE_L_80, WHITE_L_5, []{}, [] { 
             if (VMode) PAGES::ChangePageFormName("SpeedControlPage");
         }),
-        new UICheckBox("ENTER", { 264, 0, 216, 48 }, { 12, 12 }, MODE, BLACK, WHITE_L_80, WHITE_L_5, VMode),
+        new UICheckBox("ENTER", { 264, 0, 216, 48 }, { 12, 12 }, MODE, BLACK, RED, GREEN, VMode),
 
         new UITextPanel("VCounter", { 0, 72, 288, 168 }, { 12, 12 }, counterText, BLACK, WHITE_L_80),
-        new UICheckBox("ENTER", { 312, 72, 168, 168 }, { 12, 12 }, DIRECTION, BLACK, WHITE_L_80, WHITE_L_5, VDirection),
+        new UICheckBox("ENTER", { 312, 72, 168, 168 }, { 12, 12 }, DIRECTION, BLACK, RED, GREEN, VDirection),
         
         new UIButton("ENTER", { 0, 264, 480, 48 }, { 12, 12 }, CLEAR, BLACK, WHITE_L_80, WHITE_L_5, []{}, [] { 
             VCounter = 0;

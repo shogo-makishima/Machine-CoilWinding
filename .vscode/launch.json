@@ -12,8 +12,9 @@
             "type": "platformio-debug",
             "request": "launch",
             "name": "PIO Debug",
-            "executable": "c:/Users/Прототип/Documents/GitHub/Arduino_Menu/.pio/build/megaatmega2560/firmware.elf",
-            "toolchainBinDir": "C:/.platformio/packages/toolchain-atmelavr/bin",
+            "executable": "d:/GITHUB/Arduino_Menu/.pio/build/due/firmware.elf",
+            "toolchainBinDir": "C:/Users/leshy/.platformio/packages/toolchain-gccarmnoneeabi/bin",
+            "svdPath": "C:/Users/leshy/.platformio/platforms/atmelsam/misc/svd/ATSAM3X8E.svd",
             "preLaunchTask": {
                 "type": "PlatformIO",
                 "task": "Pre-Debug"
@@ -24,8 +25,9 @@
             "type": "platformio-debug",
             "request": "launch",
             "name": "PIO Debug (skip Pre-Debug)",
-            "executable": "c:/Users/Прототип/Documents/GitHub/Arduino_Menu/.pio/build/megaatmega2560/firmware.elf",
-            "toolchainBinDir": "C:/.platformio/packages/toolchain-atmelavr/bin",
+            "executable": "d:/GITHUB/Arduino_Menu/.pio/build/due/firmware.elf",
+            "toolchainBinDir": "C:/Users/leshy/.platformio/packages/toolchain-gccarmnoneeabi/bin",
+            "svdPath": "C:/Users/leshy/.platformio/platforms/atmelsam/misc/svd/ATSAM3X8E.svd",
             "internalConsoleOptions": "openOnSessionStart"
         }
     ]
