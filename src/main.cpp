@@ -1,19 +1,32 @@
 #include <Arduino.h>
-
+#include <Scheduler/src/Scheduler.h>
 #include "UTFT_Menu/Menus.h"
 
 Timer updateTimer = Timer(10, [] {
     PAGES::UpdateCurrentPage();
 });
 
+void loopMotor() {
+    CoilWinding::Update();
+    delay(PAUSE);
+    yield();
+}
+
 void setup() {
+    
+
     INIT();
+    
+    Scheduler.startLoop(loopMotor);
 }
 
 void loop() {
     updateTimer.Update();
     TOUCH.Update();
+    delay(10);
 }
+
+
 /*
 
 #include <Stepper/src/Stepper.h> // Подключение библиотеки для работы с ШД

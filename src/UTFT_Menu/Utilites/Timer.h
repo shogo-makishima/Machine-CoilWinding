@@ -6,10 +6,10 @@ typedef void(*callbackTimerZero)();
 class Timer{
 	public:
 	float time = 0.0;
-	callbackTimerZero Callback;
+	std::function<void()> Callback;
 
 
-	Timer(float seconds, callbackTimerZero callback = []{Serial.println("Timer is ZERO!");}) {
+	Timer(float seconds, std::function<void()> callback = []{Serial.println("Timer is ZERO!");}) {
 		time = seconds;
 		m_timing = millis();
 		m_time = time;

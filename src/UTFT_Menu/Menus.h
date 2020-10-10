@@ -45,11 +45,14 @@ static TouchEmulator TOUCH = TouchEmulator();
 #include "UI/UITextPanel.hpp"
 #include "UI/UICheckBox.h"
 
+#include "CoilWinding/CoilWinding.hpp"
+
 #include "Pages/Page.h"
 
 #include "Pages/PagesManager.h"
 
 #include "Pages/PagesList.h"
+
 
 static void INIT() {
     Serial.begin(9600);
@@ -66,4 +69,6 @@ static void INIT() {
 
     PAGES::Init(PAGES_LIST);
     PAGES::ChangePageFormName("MainPage");
+
+    CoilWinding::Init();
 }
