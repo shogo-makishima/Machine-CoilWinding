@@ -17,8 +17,8 @@ class Stepper {
     }
 
     void Move() {
-        digitalWrite(IN1, HIGH); 
-        digitalWrite(IN2, LOW); 
+        digitalWrite(IN1, LOW); 
+        digitalWrite(IN2, HIGH); 
         digitalWrite(IN3, LOW); 
         digitalWrite(IN4, HIGH);
     }

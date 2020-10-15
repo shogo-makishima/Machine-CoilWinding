@@ -13,8 +13,6 @@ void loopMotor() {
 }
 
 void setup() {
-    
-
     INIT();
     
     Scheduler.startLoop(loopMotor);

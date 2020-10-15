@@ -20,10 +20,11 @@ class MainPage : public Page {
         new UICheckBox("ENTER", { 264, 0, 216, 48 }, { 12, 12 }, MODE, BLACK, RED, GREEN, VMode),
 
         new UITextPanel("VCounter", { 0, 72, 288, 168 }, { 12, 12 }, counterText, BLACK, WHITE_L_80),
-        new UICheckBox("ENTER", { 312, 72, 168, 168 }, { 12, 12 }, DIRECTION, BLACK, RED, GREEN, VDirection),
+        new UICheckBox("ENTER", { 312, 72, 168, 168 }, { 12, 12 }, DIRECTION, BLACK, RED, GREEN, CoilWinding::b_direction),
         
         new UIButton("ENTER", { 0, 264, 480, 48 }, { 12, 12 }, CLEAR, BLACK, WHITE_L_80, WHITE_L_5, []{}, [] { 
-            VCounter = 0;
+            CoilWinding::countAxis = 0;
+            CoilWinding::countSteps = 0;
         }),
         NULL,
     };
