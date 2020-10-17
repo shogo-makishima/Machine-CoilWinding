@@ -34,8 +34,6 @@ class TouchEmulator {
         y = GLCD.LCD_WIDTH - point.y;
         z = point.z;
 
-        Serial.println(z);
-
         bool t_isTouch = !(!Math::InRange(0, GLCD.LCD_HEIGHT, x) && !Math::InRange(0, GLCD.LCD_WIDTH, y) && z != 0);
 
         if (!t_isTouch) {
