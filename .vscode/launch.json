@@ -12,9 +12,9 @@
             "type": "platformio-debug",
             "request": "launch",
             "name": "PIO Debug",
-            "executable": "d:/GITHUB/Arduino_Menu/.pio/build/due/firmware.elf",
-            "toolchainBinDir": "C:/Users/leshy/.platformio/packages/toolchain-gccarmnoneeabi/bin",
-            "svdPath": "C:/Users/leshy/.platformio/platforms/atmelsam/misc/svd/ATSAM3X8E.svd",
+            "executable": "d:/GITHUB/ShogoMakishima/Arduino_Menu/.pio/build/due/firmware.elf",
+            "toolchainBinDir": "C:/Users/Robostart.me4/.platformio/packages/toolchain-gccarmnoneeabi/bin",
+            "svdPath": "C:/Users/Robostart.me4/.platformio/platforms/atmelsam/misc/svd/ATSAM3X8E.svd",
             "preLaunchTask": {
                 "type": "PlatformIO",
                 "task": "Pre-Debug"
@@ -25,9 +25,9 @@
             "type": "platformio-debug",
             "request": "launch",
             "name": "PIO Debug (skip Pre-Debug)",
-            "executable": "d:/GITHUB/Arduino_Menu/.pio/build/due/firmware.elf",
-            "toolchainBinDir": "C:/Users/leshy/.platformio/packages/toolchain-gccarmnoneeabi/bin",
-            "svdPath": "C:/Users/leshy/.platformio/platforms/atmelsam/misc/svd/ATSAM3X8E.svd",
+            "executable": "d:/GITHUB/ShogoMakishima/Arduino_Menu/.pio/build/due/firmware.elf",
+            "toolchainBinDir": "C:/Users/Robostart.me4/.platformio/packages/toolchain-gccarmnoneeabi/bin",
+            "svdPath": "C:/Users/Robostart.me4/.platformio/platforms/atmelsam/misc/svd/ATSAM3X8E.svd",
             "internalConsoleOptions": "openOnSessionStart"
         }
     ]
