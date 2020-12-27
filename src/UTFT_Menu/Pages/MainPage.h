@@ -57,6 +57,8 @@ class MainPage : public Page {
             if (UIObjects[i] == NULL) break;
             UIObjects[i]->Update();
         }
+
+        CoilWinding::VCanMove = true;
     }
 };
 
