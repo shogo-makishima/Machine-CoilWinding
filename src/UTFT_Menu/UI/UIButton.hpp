@@ -8,17 +8,28 @@ class UIButton : public UIObject {
     private:
     public:
     char* Name;
-    char* text;
     Rect rect;
+
+    /// Текст на кнопке
+    char* text;
+    /// Прямоугольник для текста
     Vector2D textRect;
+    /// Основной цвет
     uint16_t Color;
+    /// Цвет после нажатия
     uint16_t PressColor;
+    /// Цвет текста
     uint16_t ColorText;
+    /// Функция вызываемая при нажатии кнопки
     std::function<void()> Press;
+    /// Функция вызываемая при отпускании кнопки
     std::function<void()> Release;
+    /// Последнее нажатие
     bool b_lastTouch = false;
+    /// Нажата ли кнопка в данный момент
     bool isPress = false;
 
+    /// Базовый конструктор
     UIButton(char* getName, Rect getRect, Vector2D getTextRect, char* getText, uint16_t getColorText, uint16_t getColor, uint16_t getPressColor, std::function<void()> callback = []{Serial.println("PRESS!");}, std::function<void()> callbackRelease = []{}) : Name(getName), rect(getRect), textRect(getTextRect), text(getText), ColorText(getColorText), Color(getColor), PressColor(getPressColor), Press(callback), Release(callbackRelease) {}
 
     void Repaint() override {
@@ -38,6 +49,7 @@ class UIButton : public UIObject {
         Repaint();
     }
 
+    /// Функция нажатия
     bool OnClick() {
         return b_isTouch && (rect.x <= TOUCH.getX() && rect.x + rect.w > TOUCH.getX() && rect.y <= TOUCH.getY() && rect.y + rect.h > TOUCH.getY());
     }

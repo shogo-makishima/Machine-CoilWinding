@@ -11,7 +11,8 @@
 #include "UTFT_Menu/Fonts/Ubuntu.h"
 #define DEFAULT_FONT Ubuntu
 
-// STRIGNS
+/// Строки
+
 #define ENTER         "Enter"
 #define CLEAR         "Clear"
 #define SPEED         "Speed"

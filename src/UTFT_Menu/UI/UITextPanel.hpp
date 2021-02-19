@@ -3,16 +3,23 @@
 
 #include "UTFT_Menu/Menus.h"
 
+/// Простая панель с текстом
 class UITextPanel : public UIObject {
     private:
     public:
     char* Name;
-    Text& text;
     Rect rect;
+
+    /// Сслылка на текст
+    Text& text;
+    /// Прямоугольник для текста
     Vector2D textRect;
+    /// Основной цвет
     uint16_t Color;
+    /// Цвет текста
     uint16_t ColorText;
 
+    /// Базовый конструктор
     UITextPanel(char* getName, Rect getRect, Vector2D getTextRect, Text& getText, uint16_t getColorText, uint16_t getColor) : Name(getName), rect(getRect), textRect(getTextRect), text(getText), ColorText(getColorText), Color(getColor) {}
 
     void Repaint() override {

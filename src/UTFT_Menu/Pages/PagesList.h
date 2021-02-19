@@ -5,6 +5,7 @@
 #include "SpeedControlPage.h"
 #include "MainPage.h"
 
+/// Список страниц
 Page* PAGES_LIST[MAX_PAGES] = {
     new Empty("Empty"),
     new MainPage("MainPage"),
@@ -12,6 +13,7 @@ Page* PAGES_LIST[MAX_PAGES] = {
     NULL,
 };
 
+/// Текущая старница
 Page* currentPage = NULL;
 
 #endif

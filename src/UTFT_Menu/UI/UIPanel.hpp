@@ -3,13 +3,17 @@
 
 #include "UTFT_Menu/Menus.h"
 
+/// Простая панель
 class UIPanel : public UIObject {
     private:
     public:
     char* Name;
     Rect rect;
+    
+    /// Основной цвет
     uint16_t Color;
 
+    /// Базовый конструктор
     UIPanel(char* getName, Rect getRect, uint16_t getColor) : Name(getName), rect(getRect), Color(getColor) {}
 
     void Repaint() override {

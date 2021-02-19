@@ -53,7 +53,7 @@ static TouchEmulator TOUCH = TouchEmulator();
 
 #include "Pages/PagesList.h"
 
-
+/// Запустить программу
 static void INIT() {
     Serial.begin(9600);
     Serial.println(TUTORIAL);

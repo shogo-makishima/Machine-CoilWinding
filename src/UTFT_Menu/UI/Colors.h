@@ -11,7 +11,6 @@
 #define WHITE       0xFFFFFF
 #define TRANSPARENT	0xFFFFFFFF
 
-// Color in RGB565: http://www.rinkydinkelectronics.com/calc_rgb565.php
 #define WHITE_L_5   0x0861
 #define WHITE_L_10  0x18C3
 #define WHITE_L_20  0x3186
