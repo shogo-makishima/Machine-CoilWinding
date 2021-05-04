@@ -3,7 +3,7 @@
 // #include "Libraries/UTFT/UTFT.h"
 // #include "Libraries/URTouch/URTouch.h"
 
-#include "platform.h"
+// #include "platform.h"
 
 #undef min
 #undef max
@@ -45,6 +45,7 @@ static TouchEmulator TOUCH = TouchEmulator();
 #include "UI/UITextPanel.hpp"
 #include "UI/UICheckBox.h"
 
+#include "CoilWinding/Pedal.hpp"
 #include "CoilWinding/CoilWinding.hpp"
 
 #include "Pages/Page.h"
@@ -69,6 +70,8 @@ static void INIT() {
 
     PAGES::Init(PAGES_LIST);
     PAGES::ChangePageFormName("MainPage");
+    
+	pinMode(PEDAL_PIN, INPUT);
 
-    CoilWinding::Init();
+	CoilWinding::Init();
 }

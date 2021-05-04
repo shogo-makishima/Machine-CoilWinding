@@ -16,6 +16,7 @@
 #define ENTER         "Enter"
 #define CLEAR         "Clear"
 #define SPEED         "Speed"
+#define RUN_OR_STOP   "Run || Stop"
 #define MODE          "Mode"
 #define DIRECTION     "+ | -"
 

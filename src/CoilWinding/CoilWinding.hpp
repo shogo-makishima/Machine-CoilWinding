@@ -7,13 +7,16 @@
 #include "UTFT_Menu/Utilites/Timer.h"
 
 #define STEPS 200 // Количество шагов на один оборот
-#define MSPEED 300 // Масимальная скорость
-#define SSPEED 300 // Базовая скорость
+#define MSPEED 200 // Масимальная скорость
+#define SSPEED 200 // Базовая скорость
 
 /// Намотка катушки
 namespace CoilWinding {
+    /// Педаль
+    static Pedal pedal = Pedal();
+
     /// Может вращаться
-    static bool VCanMove = true;
+    static bool b_canMove = false;
 
     /// Скорость вращения
     static float VSpeed = 1.0f; // [0; 1]
@@ -58,25 +61,15 @@ namespace CoilWinding {
     /// Направление
     bool b_direction = true;
 
-    /// Шаговый двигатель: 1
-    AccelStepper engine_1(AccelStepper::FULL4WIRE, 26, 28, 30, 32);
-    /// Шаговый двигатель: 2
-    AccelStepper engine_2(AccelStepper::FULL4WIRE, 27, 29, 31, 33);
+    /// Шаговый двигатель
+    AccelStepper stepperMotor(AccelStepper::FULL4WIRE, 27, 29, 31, 33);
     /// Для вращения двигателей
-    long positions[2] = { STEPS, STEPS };
-    /// Шаговые двигатели
-    MultiStepper engines;
+    long positions[1] = { STEPS };
 
     /// Создание
     void Init() {
-        engine_1.setMaxSpeed(MSPEED); // Устанавливаем скорость вращения об./мин.
-        engine_2.setMaxSpeed(MSPEED); // Устанавливаем скорость вращения об./мин.
-
-        engine_1.setSpeed(-SSPEED); // Устанавливаем скорость вращения об./мин.
-        engine_2.setSpeed(SSPEED); // Устанавливаем скорость вращения об./мин.
-        
-        engines.addStepper(engine_1);
-        engines.addStepper(engine_2);
+        stepperMotor.setMaxSpeed(MSPEED); // Устанавливаем скорость вращения об./мин.
+        stepperMotor.setSpeed(-SSPEED); // Устанавливаем скорость вращения об./мин.
     }
 
     /// Перемещение
@@ -84,16 +77,22 @@ namespace CoilWinding {
         countSteps += b_direction ? 1 : -1;
         countAxis = countSteps / STEPS;
         
-        engine_1.setSpeed(SSPEED * (b_direction ? -1 : 1) * VSpeed);
-        engine_2.setSpeed(SSPEED * (b_direction ? 1 : -1) * VSpeed);
-
-        engine_1.runSpeed();
-        engine_2.runSpeed();
+        /// степенная функция
+        VSpeed = map(pow(pedal.currentValue, 5/4), 0, PEDAL_MAX - PEDAL_MIN, 0, 255) / 255.0f;
+        // Serial.println(VSpeed);
+        
+        if (VSpeed != 0) {
+            stepperMotor.setSpeed(SSPEED * (b_direction ? -1 : 1) * VSpeed);
+            stepperMotor.runSpeed();
+        }
     }
     
     /// Обновление
     void Update() {
-        if (VCanMove) Move();
+        if (b_canMove) {
+            pedal.Update();
+            Move();
+        }
     }
 };
 

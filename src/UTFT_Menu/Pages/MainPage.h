@@ -14,13 +14,14 @@ class MainPage : public Page {
 
     public:
     UIObject* localObjects[MAX_OBJECTS_ON_PAGE] = {
-        new UIButton("ENTER", { 0, 0, 216, 48 }, { 12, 12 }, SPEED, BLACK, WHITE_L_80, WHITE_L_5, []{}, [] { 
+        new UIButton("SpeedPage", { 0, 0, 150, 48 }, { 12, 12 }, SPEED, BLACK, WHITE_L_80, WHITE_L_5, []{}, [] { 
             if (VMode) PAGES::ChangePageFormName("SpeedControlPage");
         }),
-        new UICheckBox("ENTER", { 264, 0, 216, 48 }, { 12, 12 }, MODE, BLACK, RED, GREEN, VMode),
+        new UICheckBox("Run || Stop", { 160, 0, 150, 48 }, { 12, 12 }, RUN_OR_STOP, BLACK, RED, GREEN, CoilWinding::b_canMove),
+        new UICheckBox("Mode", { 320, 0, 150, 48 }, { 12, 12 }, MODE, BLACK, RED, GREEN, VMode),
 
         new UITextPanel("VCounter", { 0, 72, 288, 168 }, { 12, 12 }, counterText, BLACK, WHITE_L_80),
-        new UICheckBox("ENTER", { 312, 72, 168, 168 }, { 12, 12 }, DIRECTION, BLACK, RED, GREEN, CoilWinding::b_direction),
+        new UICheckBox("Direction", { 312, 72, 168, 168 }, { 12, 12 }, DIRECTION, BLACK, RED, GREEN, CoilWinding::b_direction),
         
         new UIButton("ENTER", { 0, 264, 480, 48 }, { 12, 12 }, CLEAR, BLACK, WHITE_L_80, WHITE_L_5, []{}, [] { 
             CoilWinding::countAxis = 0;
@@ -57,8 +58,6 @@ class MainPage : public Page {
             if (UIObjects[i] == NULL) break;
             UIObjects[i]->Update();
         }
-
-        CoilWinding::VCanMove = true;
     }
 };
 
