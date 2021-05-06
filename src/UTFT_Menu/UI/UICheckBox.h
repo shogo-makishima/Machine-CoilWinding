@@ -20,18 +20,21 @@ class UICheckBox : public UIObject {
     uint16_t PressColor;
     /// Цвет текста
     uint16_t ColorText;
+    /// Шрифт
+    const GFXfont *Font;
     /// Последнее нажатие
     bool b_lastTouch = false;
     /// Ссылка на переменную
     bool &variable_ref;
 
     /// Базовый конструктор
-    UICheckBox(char* getName, Rect getRect, Vector2D getTextRect, char* getText, uint16_t getColorText, uint16_t getColor, uint16_t getPressColor, bool &variable) : Name(getName), rect(getRect), textRect(getTextRect), text(getText), ColorText(getColorText), Color(getColor), PressColor(getPressColor), variable_ref(variable) {}
+    UICheckBox(char* getName, Rect getRect, Vector2D getTextRect, char* getText, uint16_t getColorText, uint16_t getColor, uint16_t getPressColor, bool &variable, const GFXfont *font = &DEFAULT_FONT) : Name(getName), rect(getRect), textRect(getTextRect), text(getText), ColorText(getColorText), Color(getColor), PressColor(getPressColor), variable_ref(variable), Font(font) {}
 
     void Repaint() override {
         if (variable_ref) GLCD.fillRect(rect.x, rect.y, rect.w, rect.h, PressColor);
         else GLCD.fillRect(rect.x, rect.y, rect.w, rect.h, Color);
         
+        GLCD.setFont(Font);
         GLCD.setTextColor(ColorText);
         GLCD.setCursor(rect.x + textRect.x, rect.y + textRect.y);
         GLCD.print(text);

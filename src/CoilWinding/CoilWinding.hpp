@@ -6,9 +6,12 @@
 // #include "Libraries/CustomStepper/CustomStepper.hpp"
 #include "UTFT_Menu/Utilites/Timer.h"
 
+#define ENA 25 // Пин первой обмотки
+#define ENB 35 // Пин второй обмотки
+
 #define STEPS 200 // Количество шагов на один оборот
 #define MSPEED 200 // Масимальная скорость
-#define SSPEED 200 // Базовая скорость
+#define SSPEED 100 // Базовая скорость
 
 /// Намотка катушки
 namespace CoilWinding {
@@ -54,9 +57,19 @@ namespace CoilWinding {
     }
 
     /// Кол-во шагов
-    long int countSteps = 0;
+    double countSteps = 0.0f;
     /// Кол-во оборотов
     long int countAxis = 0;
+    /// Время действия "скорости"
+    double rotationTime = 0.0f;
+    /// Дополнительное хранение времени
+	double m_timing;
+    /// Последняя скорость
+    float lastVSpeed = 0.0f;
+    /// Кол-во скоростей
+    short int countSpeed = 0;
+    /// Сумма скоростей
+    double sumSpeed = 0.0f;
 
     /// Направление
     bool b_direction = true;
@@ -68,23 +81,77 @@ namespace CoilWinding {
 
     /// Создание
     void Init() {
+        pinMode(PEDAL_PIN, INPUT);
+
+        pinMode(ENA, OUTPUT);
+        pinMode(ENB, OUTPUT);
+
         stepperMotor.setMaxSpeed(MSPEED); // Устанавливаем скорость вращения об./мин.
         stepperMotor.setSpeed(-SSPEED); // Устанавливаем скорость вращения об./мин.
     }
 
+    /// Установить блок катушек
+    void SetBlock(bool value) {
+        digitalWrite(ENA, value);
+        digitalWrite(ENB, value);
+    }
+
     /// Перемещение
     void Move() {
-        countSteps += b_direction ? 1 : -1;
-        countAxis = countSteps / STEPS;
-        
-        /// степенная функция
+        // степенная функция
         VSpeed = map(pow(pedal.currentValue, 5/4), 0, PEDAL_MAX - PEDAL_MIN, 0, 255) / 255.0f;
         // Serial.println(VSpeed);
-        
+
         if (VSpeed != 0) {
+            SetBlock(true);
+            /*
+            m_timing = millis() / pow(10, 6);
+
+            countSteps += (lastVSpeed * SSPEED) * (m_timing - rotationTime) * (b_direction ? 1 : -1);
+            */
+            /*
+            if (rotationTime >= 0.5f) {
+                float mediumSpeed = sumSpeed / countSpeed;
+                countSteps += mediumSpeed * rotationTime * (b_direction ? 1 : -1);
+
+                countAxis = countSteps / STEPS;
+
+                m_timing = millis() / pow(10, 6);
+                rotationTime = 0;
+
+                sumSpeed = 0;
+                countSpeed = 0;
+            }
+            
+            sumSpeed += (VSpeed * SSPEED * (b_direction ? 1 : -1));
+            countSpeed++;
+
+            rotationTime += (millis() - m_timing) / pow(10, 6);
+            */
+            
+            if (VSpeed != lastVSpeed) {
+                countSteps += (SSPEED * lastVSpeed) * rotationTime * (b_direction ? 1 : -1);
+
+                m_timing = millis() / pow(10, 4);
+                rotationTime = 0;
+            } else if (rotationTime >= 0.5f) {
+                countSteps += (SSPEED * VSpeed) * rotationTime * (b_direction ? 1 : -1);
+
+                m_timing = millis() / pow(10, 4);
+                rotationTime = 0;
+            }
+
+            rotationTime += ((millis()) / pow(10, 4) - m_timing);
+            
             stepperMotor.setSpeed(SSPEED * (b_direction ? -1 : 1) * VSpeed);
             stepperMotor.runSpeed();
+        } else {
+            SetBlock(false);
+            rotationTime = 0;
         }
+
+        Serial.println(countSteps);
+        lastVSpeed = VSpeed;
     }
     
     /// Обновление
@@ -92,6 +159,8 @@ namespace CoilWinding {
         if (b_canMove) {
             pedal.Update();
             Move();
+        } else {
+            SetBlock(false);
         }
     }
 };

@@ -8,8 +8,11 @@
 
 #define BACKGDOUND BLACK
 
-#include "UTFT_Menu/Fonts/Ubuntu.h"
-#define DEFAULT_FONT Ubuntu
+#include "UTFT_Menu/Libraries/Adafruit_GFX/Fonts/FreeSans12pt7b.h"
+#define DEFAULT_FONT FreeSans12pt7b
+
+#include "UTFT_Menu/Libraries/Adafruit_GFX/Fonts/FreeSans24pt7b.h"
+#define FREE_SANS_24PT FreeSans24pt7b
 
 /// Строки
 

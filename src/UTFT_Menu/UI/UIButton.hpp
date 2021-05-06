@@ -20,6 +20,8 @@ class UIButton : public UIObject {
     uint16_t PressColor;
     /// Цвет текста
     uint16_t ColorText;
+    /// Шрифт
+    const GFXfont *Font;
     /// Функция вызываемая при нажатии кнопки
     std::function<void()> Press;
     /// Функция вызываемая при отпускании кнопки
@@ -30,12 +32,13 @@ class UIButton : public UIObject {
     bool isPress = false;
 
     /// Базовый конструктор
-    UIButton(char* getName, Rect getRect, Vector2D getTextRect, char* getText, uint16_t getColorText, uint16_t getColor, uint16_t getPressColor, std::function<void()> callback = []{Serial.println("PRESS!");}, std::function<void()> callbackRelease = []{}) : Name(getName), rect(getRect), textRect(getTextRect), text(getText), ColorText(getColorText), Color(getColor), PressColor(getPressColor), Press(callback), Release(callbackRelease) {}
+    UIButton(char* getName, Rect getRect, Vector2D getTextRect, char* getText, uint16_t getColorText, uint16_t getColor, uint16_t getPressColor, std::function<void()> callback = []{Serial.println("PRESS!");}, std::function<void()> callbackRelease = []{}, const GFXfont *font = &DEFAULT_FONT) : Name(getName), rect(getRect), textRect(getTextRect), text(getText), ColorText(getColorText), Color(getColor), PressColor(getPressColor), Press(callback), Release(callbackRelease), Font(font) {}
 
     void Repaint() override {
         if (isPress) GLCD.fillRect(rect.x, rect.y, rect.w, rect.h, PressColor);
         else GLCD.fillRect(rect.x, rect.y, rect.w, rect.h, Color);
         
+        GLCD.setFont(Font);
         GLCD.setTextColor(ColorText);
         
         GLCD.setCursor(rect.x + textRect.x, rect.y + textRect.y);

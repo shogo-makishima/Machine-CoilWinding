@@ -62,6 +62,7 @@ static void INIT() {
     SPI.begin();
   	GLCD.begin();
 
+	GLCD.setFont(&DEFAULT_FONT);
     GLCD.resetTsConfigData();
     GLCD.setRotation(1);
 
@@ -70,8 +71,6 @@ static void INIT() {
 
     PAGES::Init(PAGES_LIST);
     PAGES::ChangePageFormName("MainPage");
-    
-	pinMode(PEDAL_PIN, INPUT);
 
 	CoilWinding::Init();
 }
