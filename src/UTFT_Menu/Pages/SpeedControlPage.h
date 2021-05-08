@@ -126,7 +126,7 @@ class SpeedControlPage : public Page {
             UIObjects[i]->Update();
         }
 
-        CoilWinding::VCanMove = false;
+        CoilWinding::b_canMove = false;
     }
 
     void SetSpeedButtonsPress(int index, bool direction) {

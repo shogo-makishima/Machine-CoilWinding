@@ -1,55 +1,55 @@
+//
+// !!! WARNING !!! AUTO-GENERATED FILE!
+// PLEASE DO NOT MODIFY IT AND USE "platformio.ini":
+// https://docs.platformio.org/page/projectconf/section_env_build.html#build-flags
+//
 {
     "configurations": [
         {
-            "name": "!!! WARNING !!! AUTO-GENERATED FILE, PLEASE DO NOT MODIFY IT AND USE https://docs.platformio.org/page/projectconf/section_env_build.html#build-flags"
-        },
-        {
-            "name": "Win32",
+            "name": "PlatformIO",
             "includePath": [
-                "d:/GITHUB/ShogoMakishima/Arduino_Menu/include",
-                "d:/GITHUB/ShogoMakishima/Arduino_Menu/src",
-                "d:/GITHUB/ShogoMakishima/Arduino_Menu/lib/Adafruit_GFX",
-                "d:/GITHUB/ShogoMakishima/Arduino_Menu/lib/Adafruit_BusIO",
-                "C:/Users/Robostart.me4/.platformio/packages/framework-arduino-sam/libraries/SPI/src",
-                "C:/Users/Robostart.me4/.platformio/packages/framework-arduino-sam/libraries/Wire/src",
-                "d:/GITHUB/ShogoMakishima/Arduino_Menu/.pio/libdeps/due/ustd",
-                "C:/Users/Robostart.me4/.platformio/packages/framework-arduino-sam/cores/arduino",
-                "C:/Users/Robostart.me4/.platformio/packages/framework-arduino-sam/system/libsam",
-                "C:/Users/Robostart.me4/.platformio/packages/framework-arduino-sam/system/CMSIS/CMSIS/Include",
-                "C:/Users/Robostart.me4/.platformio/packages/framework-arduino-sam/system/CMSIS/Device/ATMEL",
-                "C:/Users/Robostart.me4/.platformio/packages/framework-arduino-sam/variants/arduino_due_x",
-                "d:/GITHUB/ShogoMakishima/Arduino_Menu/lib/ArduinoThread",
-                "d:/GITHUB/ShogoMakishima/Arduino_Menu/lib/Scheduler/src",
-                "d:/GITHUB/ShogoMakishima/Arduino_Menu/lib/pt",
-                "C:/Users/Robostart.me4/.platformio/packages/framework-arduino-sam/libraries/HID/src",
-                "C:/Users/Robostart.me4/.platformio/packages/tool-unity",
+                "C:/GITHUB/Wideus-Studio/Machine-CoilWinding/include",
+                "C:/GITHUB/Wideus-Studio/Machine-CoilWinding/src",
+                "C:/GITHUB/Wideus-Studio/Machine-CoilWinding/lib/Adafruit_GFX",
+                "C:/GITHUB/Wideus-Studio/Machine-CoilWinding/lib/Adafruit_BusIO",
+                "C:/Users/Robostart4/.platformio/packages/framework-arduino-sam/libraries/SPI/src",
+                "C:/Users/Robostart4/.platformio/packages/framework-arduino-sam/libraries/Wire/src",
+                "C:/GITHUB/Wideus-Studio/Machine-CoilWinding/.pio/libdeps/due/ustd",
+                "C:/Users/Robostart4/.platformio/packages/framework-arduino-sam/cores/arduino",
+                "C:/Users/Robostart4/.platformio/packages/framework-arduino-sam/system/libsam",
+                "C:/Users/Robostart4/.platformio/packages/framework-arduino-sam/system/CMSIS/CMSIS/Include",
+                "C:/Users/Robostart4/.platformio/packages/framework-arduino-sam/system/CMSIS/Device/ATMEL",
+                "C:/Users/Robostart4/.platformio/packages/framework-arduino-sam/variants/arduino_due_x",
+                "C:/GITHUB/Wideus-Studio/Machine-CoilWinding/lib/ArduinoThread",
+                "C:/GITHUB/Wideus-Studio/Machine-CoilWinding/lib/Scheduler/src",
+                "C:/GITHUB/Wideus-Studio/Machine-CoilWinding/lib/pt",
+                "C:/Users/Robostart4/.platformio/packages/framework-arduino-sam/libraries/HID/src",
                 ""
             ],
             "browse": {
                 "limitSymbolsToIncludedHeaders": true,
                 "path": [
-                    "d:/GITHUB/ShogoMakishima/Arduino_Menu/include",
-                    "d:/GITHUB/ShogoMakishima/Arduino_Menu/src",
-                    "d:/GITHUB/ShogoMakishima/Arduino_Menu/lib/Adafruit_GFX",
-                    "d:/GITHUB/ShogoMakishima/Arduino_Menu/lib/Adafruit_BusIO",
-                    "C:/Users/Robostart.me4/.platformio/packages/framework-arduino-sam/libraries/SPI/src",
-                    "C:/Users/Robostart.me4/.platformio/packages/framework-arduino-sam/libraries/Wire/src",
-                    "d:/GITHUB/ShogoMakishima/Arduino_Menu/.pio/libdeps/due/ustd",
-                    "C:/Users/Robostart.me4/.platformio/packages/framework-arduino-sam/cores/arduino",
-                    "C:/Users/Robostart.me4/.platformio/packages/framework-arduino-sam/system/libsam",
-                    "C:/Users/Robostart.me4/.platformio/packages/framework-arduino-sam/system/CMSIS/CMSIS/Include",
-                    "C:/Users/Robostart.me4/.platformio/packages/framework-arduino-sam/system/CMSIS/Device/ATMEL",
-                    "C:/Users/Robostart.me4/.platformio/packages/framework-arduino-sam/variants/arduino_due_x",
-                    "d:/GITHUB/ShogoMakishima/Arduino_Menu/lib/ArduinoThread",
-                    "d:/GITHUB/ShogoMakishima/Arduino_Menu/lib/Scheduler/src",
-                    "d:/GITHUB/ShogoMakishima/Arduino_Menu/lib/pt",
-                    "C:/Users/Robostart.me4/.platformio/packages/framework-arduino-sam/libraries/HID/src",
-                    "C:/Users/Robostart.me4/.platformio/packages/tool-unity",
+                    "C:/GITHUB/Wideus-Studio/Machine-CoilWinding/include",
+                    "C:/GITHUB/Wideus-Studio/Machine-CoilWinding/src",
+                    "C:/GITHUB/Wideus-Studio/Machine-CoilWinding/lib/Adafruit_GFX",
+                    "C:/GITHUB/Wideus-Studio/Machine-CoilWinding/lib/Adafruit_BusIO",
+                    "C:/Users/Robostart4/.platformio/packages/framework-arduino-sam/libraries/SPI/src",
+                    "C:/Users/Robostart4/.platformio/packages/framework-arduino-sam/libraries/Wire/src",
+                    "C:/GITHUB/Wideus-Studio/Machine-CoilWinding/.pio/libdeps/due/ustd",
+                    "C:/Users/Robostart4/.platformio/packages/framework-arduino-sam/cores/arduino",
+                    "C:/Users/Robostart4/.platformio/packages/framework-arduino-sam/system/libsam",
+                    "C:/Users/Robostart4/.platformio/packages/framework-arduino-sam/system/CMSIS/CMSIS/Include",
+                    "C:/Users/Robostart4/.platformio/packages/framework-arduino-sam/system/CMSIS/Device/ATMEL",
+                    "C:/Users/Robostart4/.platformio/packages/framework-arduino-sam/variants/arduino_due_x",
+                    "C:/GITHUB/Wideus-Studio/Machine-CoilWinding/lib/ArduinoThread",
+                    "C:/GITHUB/Wideus-Studio/Machine-CoilWinding/lib/Scheduler/src",
+                    "C:/GITHUB/Wideus-Studio/Machine-CoilWinding/lib/pt",
+                    "C:/Users/Robostart4/.platformio/packages/framework-arduino-sam/libraries/HID/src",
                     ""
                 ]
             },
             "defines": [
-                "PLATFORMIO=50002",
+                "PLATFORMIO=50101",
                 "__SAM3X8E__",
                 "ARDUINO_SAM_DUE",
                 "__ATMEGA__",
@@ -63,10 +63,9 @@
                 "ARDUINO_ARCH_SAM",
                 ""
             ],
-            "intelliSenseMode": "clang-x64",
             "cStandard": "c11",
             "cppStandard": "c++11",
-            "compilerPath": "C:/Users/Robostart.me4/.platformio/packages/toolchain-gccarmnoneeabi/bin/arm-none-eabi-gcc.exe",
+            "compilerPath": "C:/Users/Robostart4/.platformio/packages/toolchain-gccarmnoneeabi/bin/arm-none-eabi-gcc.exe",
             "compilerArgs": [
                 "-mcpu=cortex-m3",
                 "-mthumb",

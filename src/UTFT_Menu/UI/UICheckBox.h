@@ -3,25 +3,41 @@
 
 #include "UTFT_Menu/Menus.h"
 
+/// Класс поля выбора, два состояния: true, false
 class UICheckBox : public UIObject {
     private:
     public:
-    char* Name;
-    char* text;
+    char Name[MAX_LENGTH_NAME];
     Rect rect;
+
+    /// Текст на CheckBox'е
+    char text[MAX_TEXT_LENGHT];
+    /// Прямоугольник для текста
     Vector2D textRect;
+    /// Основной цвет
     uint16_t Color;
+    /// Цвет после нажатия
     uint16_t PressColor;
+    /// Цвет текста
     uint16_t ColorText;
+    /// Шрифт
+    const GFXfont *Font;
+    /// Последнее нажатие
     bool b_lastTouch = false;
+    /// Ссылка на переменную
     bool &variable_ref;
 
-    UICheckBox(char* getName, Rect getRect, Vector2D getTextRect, char* getText, uint16_t getColorText, uint16_t getColor, uint16_t getPressColor, bool &variable) : Name(getName), rect(getRect), textRect(getTextRect), text(getText), ColorText(getColorText), Color(getColor), PressColor(getPressColor), variable_ref(variable) {}
+    /// Базовый конструктор
+    UICheckBox(char getName[MAX_LENGTH_NAME], Rect getRect, Vector2D getTextRect, char getText[MAX_TEXT_LENGHT], uint16_t getColorText, uint16_t getColor, uint16_t getPressColor, bool &variable, const GFXfont *font = &DEFAULT_FONT) : rect(getRect), textRect(getTextRect), ColorText(getColorText), Color(getColor), PressColor(getPressColor), variable_ref(variable), Font(font) {
+        strcpy(Name, getName);
+        strcpy(text, getText);
+    }
 
     void Repaint() override {
         if (variable_ref) GLCD.fillRect(rect.x, rect.y, rect.w, rect.h, PressColor);
         else GLCD.fillRect(rect.x, rect.y, rect.w, rect.h, Color);
         
+        GLCD.setFont(Font);
         GLCD.setTextColor(ColorText);
         GLCD.setCursor(rect.x + textRect.x, rect.y + textRect.y);
         GLCD.print(text);
@@ -34,6 +50,7 @@ class UICheckBox : public UIObject {
         Repaint();
     }
 
+    /// Функция нажатия
     bool OnClick() {
         return b_isTouch && (rect.x <= TOUCH.getX() && rect.x + rect.w >= TOUCH.getX() && rect.y <= TOUCH.getY() && rect.y + rect.h >= TOUCH.getY());
     }
