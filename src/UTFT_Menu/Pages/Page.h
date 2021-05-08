@@ -21,6 +21,16 @@ class Page {
     /// Функция обновления
     virtual void Update();
     
+    /// Получить ссылку на элемент интерфейса по имени
+    UIObject* GetObjectByName(char* name) {
+        for (int i = 0; i < MAX_OBJECTS_ON_PAGE; i++) {
+            if (UIObjects[i] == NULL) break;
+            if (strcmp(UIObjects[i]->Name, name) == 0) return UIObjects[i];
+        }
+
+        return NULL;
+    }
+
     /// Перерисовать элемент по его индексу
     void RepaintByIndex(int index) {
         if (UIObjects[index] == NULL) return;

@@ -7,11 +7,11 @@
 class UICheckBox : public UIObject {
     private:
     public:
-    char* Name;
+    char Name[MAX_LENGTH_NAME];
     Rect rect;
 
     /// Текст на CheckBox'е
-    char* text;
+    char text[MAX_TEXT_LENGHT];
     /// Прямоугольник для текста
     Vector2D textRect;
     /// Основной цвет
@@ -28,7 +28,10 @@ class UICheckBox : public UIObject {
     bool &variable_ref;
 
     /// Базовый конструктор
-    UICheckBox(char* getName, Rect getRect, Vector2D getTextRect, char* getText, uint16_t getColorText, uint16_t getColor, uint16_t getPressColor, bool &variable, const GFXfont *font = &DEFAULT_FONT) : Name(getName), rect(getRect), textRect(getTextRect), text(getText), ColorText(getColorText), Color(getColor), PressColor(getPressColor), variable_ref(variable), Font(font) {}
+    UICheckBox(char getName[MAX_LENGTH_NAME], Rect getRect, Vector2D getTextRect, char getText[MAX_TEXT_LENGHT], uint16_t getColorText, uint16_t getColor, uint16_t getPressColor, bool &variable, const GFXfont *font = &DEFAULT_FONT) : rect(getRect), textRect(getTextRect), ColorText(getColorText), Color(getColor), PressColor(getPressColor), variable_ref(variable), Font(font) {
+        strcpy(Name, getName);
+        strcpy(text, getText);
+    }
 
     void Repaint() override {
         if (variable_ref) GLCD.fillRect(rect.x, rect.y, rect.w, rect.h, PressColor);

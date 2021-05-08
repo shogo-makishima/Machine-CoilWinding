@@ -7,11 +7,11 @@
 class UIButton : public UIObject {
     private:
     public:
-    char* Name;
+    char Name[MAX_LENGTH_NAME];
     Rect rect;
 
     /// Текст на кнопке
-    char* text;
+    char text[MAX_TEXT_LENGHT];
     /// Прямоугольник для текста
     Vector2D textRect;
     /// Основной цвет
@@ -32,7 +32,10 @@ class UIButton : public UIObject {
     bool isPress = false;
 
     /// Базовый конструктор
-    UIButton(char* getName, Rect getRect, Vector2D getTextRect, char* getText, uint16_t getColorText, uint16_t getColor, uint16_t getPressColor, std::function<void()> callback = []{Serial.println("PRESS!");}, std::function<void()> callbackRelease = []{}, const GFXfont *font = &DEFAULT_FONT) : Name(getName), rect(getRect), textRect(getTextRect), text(getText), ColorText(getColorText), Color(getColor), PressColor(getPressColor), Press(callback), Release(callbackRelease), Font(font) {}
+    UIButton(char getName[MAX_LENGTH_NAME], Rect getRect, Vector2D getTextRect, char getText[MAX_TEXT_LENGHT], uint16_t getColorText, uint16_t getColor, uint16_t getPressColor, std::function<void()> callback = []{Serial.println("PRESS!");}, std::function<void()> callbackRelease = []{}, const GFXfont *font = &DEFAULT_FONT) : rect(getRect), textRect(getTextRect), ColorText(getColorText), Color(getColor), PressColor(getPressColor), Press(callback), Release(callbackRelease), Font(font) {
+        strcpy(Name, getName);
+        strcpy(text, getText);
+    }
 
     void Repaint() override {
         if (isPress) GLCD.fillRect(rect.x, rect.y, rect.w, rect.h, PressColor);

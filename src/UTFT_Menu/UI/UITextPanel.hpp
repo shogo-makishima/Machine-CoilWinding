@@ -7,7 +7,7 @@
 class UITextPanel : public UIObject {
     private:
     public:
-    char* Name;
+    char Name[MAX_LENGTH_NAME];
     Rect rect;
 
     /// Сслылка на текст
@@ -22,7 +22,9 @@ class UITextPanel : public UIObject {
     const GFXfont *Font;
 
     /// Базовый конструктор
-    UITextPanel(char* getName, Rect getRect, Vector2D getTextRect, Text& getText, uint16_t getColorText, uint16_t getColor, const GFXfont *font = &DEFAULT_FONT) : Name(getName), rect(getRect), textRect(getTextRect), text(getText), ColorText(getColorText), Color(getColor), Font(font) {}
+    UITextPanel(char getName[MAX_LENGTH_NAME], Rect getRect, Vector2D getTextRect, Text& getText, uint16_t getColorText, uint16_t getColor, const GFXfont *font = &DEFAULT_FONT) : rect(getRect), textRect(getTextRect), text(getText), ColorText(getColorText), Color(getColor), Font(font) {
+        strcpy(Name, getName);
+    }
 
     void Repaint() override {
         GLCD.fillRect(rect.x, rect.y, rect.w, rect.h, Color);

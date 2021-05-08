@@ -3,10 +3,13 @@
 
 #include "Rect.h"
 
+#define MAX_LENGTH_NAME 16
+#define MAX_TEXT_LENGHT 32
+
 /// Объект мира
 struct UIObject {
     /// Название объекта
-    char* Name;
+    char Name[MAX_LENGTH_NAME];
     /// Прямоугольник
     Rect rect;
 

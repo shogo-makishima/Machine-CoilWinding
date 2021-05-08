@@ -11,7 +11,7 @@
 
 #define STEPS 200 // Количество шагов на один оборот
 #define MSPEED 200 // Масимальная скорость
-#define SSPEED 100 // Базовая скорость
+#define SSPEED 200 // Базовая скорость
 
 /// Намотка катушки
 namespace CoilWinding {
@@ -56,21 +56,10 @@ namespace CoilWinding {
         // eeprom_write_block((void*)&VSpeed, (const void*)&VSpeed_ADDR, sizeof(VSpeed));
     }
 
-    /// Кол-во шагов
-    double countSteps = 0.0f;
     /// Кол-во оборотов
-    long int countAxis = 0;
-    /// Время действия "скорости"
-    double rotationTime = 0.0f;
-    /// Дополнительное хранение времени
-	double m_timing;
-    /// Последняя скорость
-    float lastVSpeed = 0.0f;
-    /// Кол-во скоростей
-    short int countSpeed = 0;
-    /// Сумма скоростей
-    double sumSpeed = 0.0f;
-
+    long countAxis = 0;
+    /// Последняя позиция
+    long lastPosition = 0;
     /// Направление
     bool b_direction = true;
 
@@ -104,54 +93,17 @@ namespace CoilWinding {
 
         if (VSpeed != 0) {
             SetBlock(true);
-            /*
-            m_timing = millis() / pow(10, 6);
 
-            countSteps += (lastVSpeed * SSPEED) * (m_timing - rotationTime) * (b_direction ? 1 : -1);
-            */
-            /*
-            if (rotationTime >= 0.5f) {
-                float mediumSpeed = sumSpeed / countSpeed;
-                countSteps += mediumSpeed * rotationTime * (b_direction ? 1 : -1);
+            countAxis = -stepperMotor.currentPosition() / STEPS;
 
-                countAxis = countSteps / STEPS;
-
-                m_timing = millis() / pow(10, 6);
-                rotationTime = 0;
-
-                sumSpeed = 0;
-                countSpeed = 0;
-            }
-            
-            sumSpeed += (VSpeed * SSPEED * (b_direction ? 1 : -1));
-            countSpeed++;
-
-            rotationTime += (millis() - m_timing) / pow(10, 6);
-            */
-            
-            if (VSpeed != lastVSpeed) {
-                countSteps += (SSPEED * lastVSpeed) * rotationTime * (b_direction ? 1 : -1);
-
-                m_timing = millis() / pow(10, 4);
-                rotationTime = 0;
-            } else if (rotationTime >= 0.5f) {
-                countSteps += (SSPEED * VSpeed) * rotationTime * (b_direction ? 1 : -1);
-
-                m_timing = millis() / pow(10, 4);
-                rotationTime = 0;
-            }
-
-            rotationTime += ((millis()) / pow(10, 4) - m_timing);
-            
             stepperMotor.setSpeed(SSPEED * (b_direction ? -1 : 1) * VSpeed);
             stepperMotor.runSpeed();
+
+            lastPosition = stepperMotor.currentPosition();
+            // Serial.println(roundf(countAxis * 10) / 10);
         } else {
             SetBlock(false);
-            rotationTime = 0;
         }
-
-        Serial.println(countSteps);
-        lastVSpeed = VSpeed;
     }
     
     /// Обновление

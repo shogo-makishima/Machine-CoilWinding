@@ -25,7 +25,12 @@ class Text {
     /// Установить текст: float
     void SetText(float getText) { 
         char array[16];
-        // dtostrf(getText, 6, 2, array);
+        strcpy(text, array);
+    }
+
+    /// Установить текст: double
+    void SetText(double getText) { 
+        char array[16];
         strcpy(text, array);
     }
 

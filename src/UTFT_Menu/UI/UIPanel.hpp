@@ -7,14 +7,16 @@
 class UIPanel : public UIObject {
     private:
     public:
-    char* Name;
+    char Name[MAX_LENGTH_NAME];
     Rect rect;
     
     /// Основной цвет
     uint16_t Color;
 
     /// Базовый конструктор
-    UIPanel(char* getName, Rect getRect, uint16_t getColor) : Name(getName), rect(getRect), Color(getColor) {}
+    UIPanel(char getName[MAX_LENGTH_NAME], Rect getRect, uint16_t getColor) : rect(getRect), Color(getColor) {
+        strcpy(Name, getName);
+    }
 
     void Repaint() override {
         GLCD.fillRect(rect.x, rect.y, rect.w, rect.h, Color);
