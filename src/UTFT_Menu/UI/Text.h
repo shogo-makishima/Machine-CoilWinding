@@ -1,6 +1,8 @@
 #ifndef _TEXT_H_
 #define _TEXT_H_
 
+#include <avr/dtostrf.h>
+
 /// Класс текста
 class Text {
     public: 
@@ -25,12 +27,14 @@ class Text {
     /// Установить текст: float
     void SetText(float getText) { 
         char array[16];
+        dtostrf(getText, 6, 2, array);
         strcpy(text, array);
     }
 
-    /// Установить текст: double
-    void SetText(double getText) { 
+    /// Установить текст: long
+    void SetText(long getText) { 
         char array[16];
+        ltoa(getText, array, 10);
         strcpy(text, array);
     }
 

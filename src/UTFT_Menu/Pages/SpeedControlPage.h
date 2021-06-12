@@ -22,7 +22,7 @@ class SpeedControlPage : public Page {
     public:
     UIObject* localObjects[MAX_OBJECTS_ON_PAGE] = {
         new UIButton("CLEAR", { 0, 8, 480, 48 }, { 12, 12 }, CLEAR, BLACK, WHITE_L_80, WHITE_L_5, []{}, [&, this] {
-            CoilWinding::ClearVSpeed();
+            // CoilWinding::ClearVSpeed();
         }),
 
         // TEXT SYMBOL 1
@@ -83,8 +83,8 @@ class SpeedControlPage : public Page {
         }),
         
         new UIButton("ENTER", { 0, 264, 480, 48 }, { 12, 12 }, ENTER, BLACK, WHITE_L_80, WHITE_L_5, []{}, [&, this] { 
-            CoilWinding::EnterVSpeedInt();
-            CoilWinding::SaveVSpeedInt();
+            // CoilWinding::EnterVSpeedInt();
+            // CoilWinding::SaveVSpeedInt();
             PAGES::ChangePageFormName("MainPage");
         }),
         NULL,
@@ -103,10 +103,12 @@ class SpeedControlPage : public Page {
     }
 
     void Start() override {
+        /*
         if (CoilWinding::VFirstLoad) {
             CoilWinding::LoadVSpeedInt();
             CoilWinding::VFirstLoad = !CoilWinding::VFirstLoad;
         }
+        */
 
         RepaintAll();
 
@@ -114,6 +116,7 @@ class SpeedControlPage : public Page {
     }
 
     void Update() override {
+        /*
         for (int i = 0; i < 6; i++) {
             if (lastUiInt[i] != CoilWinding::VMax[i])
                 UpdateTextByIndex(i);
@@ -125,13 +128,13 @@ class SpeedControlPage : public Page {
             if (UIObjects[i] == NULL) break;
             UIObjects[i]->Update();
         }
-
-        CoilWinding::b_canMove = false;
+        */
+        localCanMove = false;
     }
 
     void SetSpeedButtonsPress(int index, bool direction) {
-        CoilWinding::VMax[index] = CoilWinding::VMax[index] + (1 * (direction) ? 1 : -1);
-        CoilWinding::VMax[index] = Math::CycleClamp(0, 9, CoilWinding::VMax[index]);
+        //CoilWinding::VMax[index] = CoilWinding::VMax[index] + (1 * (direction) ? 1 : -1);
+        //CoilWinding::VMax[index] = Math::CycleClamp(0, 9, CoilWinding::VMax[index]);
     }
 
     void UpdateTextByIndex(int i) {
@@ -140,7 +143,7 @@ class SpeedControlPage : public Page {
     }   
 
     void SetTextByIndex(int i) {
-        uiSymbols[i].SetText(CoilWinding::VMax[i]);
+        //uiSymbols[i].SetText(CoilWinding::VMax[i]);
     }
 
     void RepaintTextByIndex(int i) {

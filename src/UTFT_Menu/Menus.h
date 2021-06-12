@@ -14,6 +14,9 @@
 #include "Libraries/Adafruit_GFX/Adafruit_GFX.h"
 #include "Libraries/Waveshare_ILI9486/Waveshare_ILI9486.h"
 
+#include "Libraries/Regexp/Regexp.h"
+#include "Libraries/CustomSerial.hpp"
+
 extern uint8_t SmallFont[];                            // подключаем маленький шрифт
 extern uint8_t BigFont[];                              // подключаем большой шрифт
 extern uint8_t SevenSegNumFont[];                      // подключаем цифровой шрифт
@@ -45,20 +48,22 @@ static TouchEmulator TOUCH = TouchEmulator();
 #include "UI/UITextPanel.hpp"
 #include "UI/UICheckBox.h"
 
-#include "CoilWinding/Pedal.hpp"
-#include "CoilWinding/CoilWinding.hpp"
-
 #include "Pages/Page.h"
 
 #include "Pages/PagesManager.h"
 
 #include "Pages/PagesList.h"
 
-/// Запустить программу
-static void INIT() {
-    Serial.begin(9600);
+/// Запустить сериал порт
+static void InitSerial() {
+    Serial.begin(115200);
     Serial.println(TUTORIAL);
 
+    Serial1.begin(76800);
+}
+
+/// Запустить дисплей
+static void InitDisplay() {
     SPI.begin();
   	GLCD.begin();
 
@@ -71,6 +76,4 @@ static void INIT() {
 
     PAGES::Init(PAGES_LIST);
     PAGES::ChangePageFormName("MainPage");
-
-	CoilWinding::Init();
 }
