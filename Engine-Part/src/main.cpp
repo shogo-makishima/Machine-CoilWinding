@@ -6,6 +6,8 @@ void setup() {
 
 	CustomSerial::customSerial.begin(76800);
 
+	Data::Load();
+
 	CoilWinding::Init();
 }
 
@@ -20,10 +22,10 @@ void loop() {
 		CustomSerial::b_bufferIsFull = false;
 	}
 
-	if (CoilWinding::countAxis != CoilWinding::last_countAxis) {
+	if (Data::dataContainer.countTurn != CoilWinding::last_countTurn) {
         CustomSerial::customSerial.print("D20 ");
-        CustomSerial::customSerial.println(CoilWinding::countAxis);
+        CustomSerial::customSerial.println(Data::dataContainer.countTurn);
     }
 
-	CoilWinding::last_countAxis = CoilWinding::countAxis;
+	CoilWinding::last_countTurn = Data::dataContainer.countTurn;
 }

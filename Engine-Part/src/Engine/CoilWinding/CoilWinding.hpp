@@ -3,7 +3,6 @@
 
 #include "Libraries/AccelStepper/src/AccelStepper.h"
 #include "Libraries/AccelStepper/src/MultiStepper.h"
-// #include "Libraries/CustomStepper/CustomStepper.hpp"
 
 #define ENA 7 // Пин первой обмотки
 #define ENB 2 // Пин второй обмотки
@@ -21,12 +20,12 @@ namespace CoilWinding {
 
     /// Обдув
     static CoolerPWM cooler = {COOLER_PIN};
-
+    /*
     /// Может вращаться
     static bool b_canMove = false;
     /// Режим работы
     static bool b_mode = true;
-
+    */
     /// Скорость вращения
     static float VSpeed = 1.0f; // [0; 1]
     /// Первый ли запуск после включения питания
@@ -36,15 +35,15 @@ namespace CoilWinding {
 
     /// Максимальное кол-во оборотов ARRAY
     static int VMax[6] = { 0, 0, 0, 0, 0, 0, };
-
+    /*
     /// Кол-во оборотов
-    long countAxis = 0;
-    /// Предыдущее кол-во оборотов
-    long last_countAxis = 0;
-    /// Последняя позиция
-    long lastPosition = 0;
+    long countTurn = 0;
     /// Направление
     bool b_direction = true;
+    */
+
+    /// Предыдущее кол-во оборотов
+    long last_countTurn = 0;
 
     /// Шаговый двигатель
     AccelStepper stepperMotor(AccelStepper::FULL4WIRE, 6, 5, 4, 3);
@@ -78,10 +77,9 @@ namespace CoilWinding {
         if (VSpeed != 0) {
             SetBlock(true);
 
-            // countAxis = roundf(double(-stepperMotor.currentPosition()) / STEPS * 10) / 10;
-            countAxis = -stepperMotor.currentPosition() / STEPS;
+            Data::dataContainer.countTurn = -stepperMotor.currentPosition() / STEPS;
 
-            stepperMotor.setSpeed(SSPEED * (b_direction ? -1 : 1) * VSpeed);
+            stepperMotor.setSpeed(SSPEED * (Data::dataContainer.b_direction ? -1 : 1) * VSpeed);
             stepperMotor.runSpeed();
         } else {
             SetBlock(false);
@@ -90,7 +88,7 @@ namespace CoilWinding {
     
     /// Обновление
     void Update() {
-        if (b_canMove) {
+        if (Data::dataContainer.b_canMove) {
             pedal.Update();
             Move();
         } else {
