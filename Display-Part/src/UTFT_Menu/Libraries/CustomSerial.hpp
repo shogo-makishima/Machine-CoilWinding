@@ -59,10 +59,8 @@ namespace CustomSerial {
             } else break;
         }
 
-        if (strcmp(BUFFER_COMMAND[0], "D0") == 0) {
-            PAGES::page->RepaintAll();
-        } else if (strcmp(BUFFER_COMMAND[0], "D20") == 0) {
-            localCountAxis = atol(BUFFER_COMMAND[1]);
+        if (strcmp(BUFFER_COMMAND[0], "D20") == 0) {
+            localCountTurn = atol(BUFFER_COMMAND[1]);
             wasLoad_CountAxis++;
         }  else if (strcmp(BUFFER_COMMAND[0], "D21") == 0) {
             if (strcmp(BUFFER_COMMAND[1], "0") == 0) localCanMove = false;
@@ -76,6 +74,9 @@ namespace CustomSerial {
             if (strcmp(BUFFER_COMMAND[1], "0") == 0) localDirection = false;
             else localDirection = true;
             wasLoad_Direction++;
+        }  else if (strcmp(BUFFER_COMMAND[0], "D24") == 0) {
+            VariableController::LimitFromFloat(atof(BUFFER_COMMAND[1]));
+            wasLoad_Limit++;
         } 
     }
 

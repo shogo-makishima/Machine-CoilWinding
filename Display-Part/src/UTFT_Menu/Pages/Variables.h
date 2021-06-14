@@ -3,16 +3,21 @@
 
 // #include "EEPROM.h"
 
+#define LIMIT_LIST_LENGHT 5
+
 bool localCanMove = true;
 bool localDirection = true;
 bool localMode = true;
-//float localCountAxis = 0;
-long localCountAxis = 0;
+long localCountTurn = 0;
+
+float localLimit = 0.0f;
+byte localLimitMenu[LIMIT_LIST_LENGHT] = { 0, 0, 0, 0, 0 };
 
 byte wasLoad_CanMove = 0;
 byte wasLoad_Direction = 0;
 byte wasLoad_Mode = 0;
 byte wasLoad_CountAxis = 0;
+byte wasLoad_Limit = 0;
 
 namespace VariableController {
     bool cacheDirection = true;
@@ -39,6 +44,11 @@ namespace VariableController {
             Serial1.println("M23");
             wasLoad_Direction++;
         }
+
+        if (wasLoad_Direction == 2 && wasLoad_Limit == 0) {
+            Serial1.println("M24");
+            wasLoad_Limit++;
+        }
     }
 
     void CheckVariable() {
@@ -58,6 +68,22 @@ namespace VariableController {
         cacheCanMove = localCanMove;
         cacheDirection = localDirection;
         cacheMode = localMode;
+    }
+
+    float LimitToFloat() {
+        return localLimitMenu[0] * 1000 + localLimitMenu[1] * 100 + localLimitMenu[2] * 10 + localLimitMenu[3] * 1 + localLimitMenu[4] / 10.0f;
+    }
+
+    void LimitFromFloat(float value) {
+        int temp_limit = value * 10;
+            
+        for (int i = 0; i < LIMIT_LIST_LENGHT; i++) {
+            int temp_dec = temp_limit / pow(10, LIMIT_LIST_LENGHT - (i + 1));
+            localLimitMenu[i] = temp_dec;
+            temp_limit -= temp_dec * pow(10, LIMIT_LIST_LENGHT - (i + 1));
+        }
+
+        localLimit = LimitToFloat();
     }
 }
 

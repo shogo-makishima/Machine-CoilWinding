@@ -6,10 +6,9 @@
 
 class SpeedControlPage : public Page {
     private:
-    int lastUiInt[6] = {  0, 0, 0, 0, 0, };
+    byte last_limitUI[LIMIT_LIST_LENGHT] = {  0, 0, 0, 0, 0 };
 
-    Text uiSymbols[6] = { 
-        { "0" },
+    Text uiSymbols[LIMIT_LIST_LENGHT] = { 
         { "0" },
         { "0" },
         { "0" },
@@ -62,29 +61,21 @@ class SpeedControlPage : public Page {
         }),
 
         // TEXT SYMBOL 5
-        new UIButton("X+", { 288, 72, 48, 48 }, { 12, 12 }, "+", BLACK, WHITE_L_80, WHITE_L_5, []{}, [&, this] {
+        new UIButton("X+", { 360, 72, 48, 48 }, { 12, 12 }, "+", BLACK, WHITE_L_80, WHITE_L_5, []{}, [&, this] {
             SetSpeedButtonsPress(4, true);
         }),
-        new UITextPanel("X+", { 288, 136, 48, 48 }, { 12, 12 }, uiSymbols[4], BLACK, WHITE_L_80),
-        new UIButton("X+", { 288, 200, 48, 48 }, { 12, 12 }, "-", BLACK, WHITE_L_80, WHITE_L_5, []{}, [&, this] {
+        new UITextPanel("X+", { 360, 136, 48, 48 }, { 12, 12 }, uiSymbols[4], BLACK, WHITE_L_80),
+        new UIButton("X+", { 360, 200, 48, 48 }, { 12, 12 }, "-", BLACK, WHITE_L_80, WHITE_L_5, []{}, [&, this] {
             SetSpeedButtonsPress(4, false);
         }),
 
         // Separate symbol
-        new UITextPanel("X+", { 360, 136, 48, 48 }, { 12, 12 }, separteSymbol, BLACK, WHITE_L_80),
-
-        // TEXT SYMBOL 6
-        new UIButton("X+", { 432, 72, 48, 48 }, { 12, 12 }, "+", BLACK, WHITE_L_80, WHITE_L_5, []{}, [&, this] {
-            SetSpeedButtonsPress(5, true);
-        }),
-        new UITextPanel("X+", { 432, 136, 48, 48 }, { 12, 12 }, uiSymbols[5], BLACK, WHITE_L_80),
-        new UIButton("X+", { 432, 200, 48, 48 }, { 12, 12 }, "-", BLACK, WHITE_L_80, WHITE_L_5, []{}, [&, this] {
-            SetSpeedButtonsPress(5, false);
-        }),
+        new UITextPanel("X+", { 288, 136, 48, 48 }, { 12, 12 }, separteSymbol, BLACK, WHITE_L_80),
         
-        new UIButton("ENTER", { 0, 264, 480, 48 }, { 12, 12 }, ENTER, BLACK, WHITE_L_80, WHITE_L_5, []{}, [&, this] { 
-            // CoilWinding::EnterVSpeedInt();
-            // CoilWinding::SaveVSpeedInt();
+        new UIButton("ENTER", { 0, 264, 480, 48 }, { 12, 12 }, ENTER, BLACK, WHITE_L_80, WHITE_L_5, []{}, [&, this] {
+            Serial1.print("M30 ");
+            Serial1.println(VariableController::LimitToFloat() * 10);
+            localLimit = VariableController::LimitToFloat();
             PAGES::ChangePageFormName("MainPage");
         }),
         NULL,
@@ -103,38 +94,30 @@ class SpeedControlPage : public Page {
     }
 
     void Start() override {
-        /*
-        if (CoilWinding::VFirstLoad) {
-            CoilWinding::LoadVSpeedInt();
-            CoilWinding::VFirstLoad = !CoilWinding::VFirstLoad;
-        }
-        */
-
         RepaintAll();
 
-        for (int i = 0; i < 6; i++) UpdateTextByIndex(i);
+        for (int i = 0; i < LIMIT_LIST_LENGHT; i++) UpdateTextByIndex(i);
     }
 
     void Update() override {
-        /*
-        for (int i = 0; i < 6; i++) {
-            if (lastUiInt[i] != CoilWinding::VMax[i])
+        for (int i = 0; i < LIMIT_LIST_LENGHT; i++) {
+            if (last_limitUI[i] != localLimitMenu[i])
                 UpdateTextByIndex(i);
 
-            lastUiInt[i] = CoilWinding::VMax[i];
+            last_limitUI[i] = localLimitMenu[i];
         }
 
         for (int i = 0; i < MAX_OBJECTS_ON_PAGE; i++) {
             if (UIObjects[i] == NULL) break;
             UIObjects[i]->Update();
         }
-        */
+
         localCanMove = false;
     }
 
     void SetSpeedButtonsPress(int index, bool direction) {
-        //CoilWinding::VMax[index] = CoilWinding::VMax[index] + (1 * (direction) ? 1 : -1);
-        //CoilWinding::VMax[index] = Math::CycleClamp(0, 9, CoilWinding::VMax[index]);
+        localLimitMenu[index] = localLimitMenu[index] + (1 * (direction) ? 1 : -1);
+        localLimitMenu[index] = Math::CycleClamp(0, 9, localLimitMenu[index]);
     }
 
     void UpdateTextByIndex(int i) {
@@ -143,7 +126,7 @@ class SpeedControlPage : public Page {
     }   
 
     void SetTextByIndex(int i) {
-        //uiSymbols[i].SetText(CoilWinding::VMax[i]);
+        uiSymbols[i].SetText(localLimitMenu[i]);
     }
 
     void RepaintTextByIndex(int i) {
@@ -152,7 +135,6 @@ class SpeedControlPage : public Page {
         else if (i == 2) UIObjects[8]->Repaint();
         else if (i == 3) UIObjects[11]->Repaint();
         else if (i == 4) UIObjects[14]->Repaint();
-        else if (i == 5) UIObjects[18]->Repaint();
     }
 };
 

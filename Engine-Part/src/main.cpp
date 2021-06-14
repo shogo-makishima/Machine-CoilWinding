@@ -22,9 +22,10 @@ void loop() {
 		CustomSerial::b_bufferIsFull = false;
 	}
 
-	if (Data::dataContainer.countTurn != CoilWinding::last_countTurn) {
+	if ((long)Data::dataContainer.countTurn != (long)CoilWinding::last_countTurn) {
         CustomSerial::customSerial.print("D20 ");
-        CustomSerial::customSerial.println(Data::dataContainer.countTurn);
+		long t_countTurn = Data::dataContainer.countTurn;
+        CustomSerial::customSerial.println(t_countTurn);
     }
 
 	CoilWinding::last_countTurn = Data::dataContainer.countTurn;

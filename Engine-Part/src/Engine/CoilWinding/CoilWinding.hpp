@@ -9,7 +9,7 @@
 
 #define COOLER_PIN 9
 
-#define STEPS 100 // Количество шагов на один оборот
+#define STEPS 200 // Количество шагов на один оборот
 #define MSPEED 100 // Масимальная скорость
 #define SSPEED 100 // Базовая скорость
 
@@ -20,12 +20,7 @@ namespace CoilWinding {
 
     /// Обдув
     static CoolerPWM cooler = {COOLER_PIN};
-    /*
-    /// Может вращаться
-    static bool b_canMove = false;
-    /// Режим работы
-    static bool b_mode = true;
-    */
+
     /// Скорость вращения
     static float VSpeed = 1.0f; // [0; 1]
     /// Первый ли запуск после включения питания
@@ -35,15 +30,9 @@ namespace CoilWinding {
 
     /// Максимальное кол-во оборотов ARRAY
     static int VMax[6] = { 0, 0, 0, 0, 0, 0, };
-    /*
-    /// Кол-во оборотов
-    long countTurn = 0;
-    /// Направление
-    bool b_direction = true;
-    */
 
     /// Предыдущее кол-во оборотов
-    long last_countTurn = 0;
+    double last_countTurn = 0.0f;
 
     /// Шаговый двигатель
     AccelStepper stepperMotor(AccelStepper::FULL4WIRE, 6, 5, 4, 3);
@@ -58,6 +47,7 @@ namespace CoilWinding {
         pinMode(ENB, OUTPUT);
         pinMode(COOLER_PIN, OUTPUT);
 
+        stepperMotor.setCurrentPosition(Data::dataContainer.currentPosition);
         stepperMotor.setMaxSpeed(MSPEED); // Устанавливаем скорость вращения об./мин.
         stepperMotor.setSpeed(-SSPEED); // Устанавливаем скорость вращения об./мин.
     }
@@ -75,10 +65,21 @@ namespace CoilWinding {
         //VSpeed = 0.25f;
 
         if (VSpeed != 0) {
+            Data::dataContainer.countTurn = double(-stepperMotor.currentPosition()) / double(STEPS);
+            Data::dataContainer.currentPosition = stepperMotor.currentPosition();
+
+            if (Data::dataContainer.b_mode) {
+                if (double(Data::dataContainer.limit_countTurn) - (Data::dataContainer.b_direction ? 1 : -1) * Data::dataContainer.countTurn < 0) {
+                    SetBlock(false);
+                    return;
+                }
+                if (Data::dataContainer.countTurn < 0 && !Data::dataContainer.b_direction) {
+                    SetBlock(false);
+                    return;
+                }
+            }
+
             SetBlock(true);
-
-            Data::dataContainer.countTurn = -stepperMotor.currentPosition() / STEPS;
-
             stepperMotor.setSpeed(SSPEED * (Data::dataContainer.b_direction ? -1 : 1) * VSpeed);
             stepperMotor.runSpeed();
         } else {

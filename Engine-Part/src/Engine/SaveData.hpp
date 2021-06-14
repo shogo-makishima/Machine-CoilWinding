@@ -5,15 +5,16 @@
 namespace Data {
     /// Структура контейнера данных
     struct DataContainer {
-        long countTurn;
+        double countTurn;
         long currentPosition;
+        double limit_countTurn;
         bool b_direction;
         bool b_canMove;
         bool b_mode;
     };
 
     /// Контейнер данных
-    DataContainer dataContainer = { 0, 0, true, false, true };
+    DataContainer dataContainer = { 0.0f, 0, 5.0f, true, false, true };
 
     /// Сохранить данные
     void Save() {
@@ -25,6 +26,9 @@ namespace Data {
         eeprom_read_block((void*)&dataContainer, 10, sizeof(dataContainer));
         Serial.print("[DEBUG] CountTurn: ");
         Serial.println(dataContainer.countTurn);
+
+        dataContainer.countTurn = 0.0f;
+        dataContainer.limit_countTurn = 5.0f;
     }
 };
 
