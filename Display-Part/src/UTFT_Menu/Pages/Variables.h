@@ -11,7 +11,7 @@ bool localMode = true;
 long localCountTurn = 0;
 
 float localLimit = 0.0f;
-byte localLimitMenu[LIMIT_LIST_LENGHT] = { 0, 0, 0, 0, 0 };
+int localLimitMenu[LIMIT_LIST_LENGHT] = { 0, 0, 0, 0, 0 };
 
 byte wasLoad_CanMove = 0;
 byte wasLoad_Direction = 0;
@@ -19,11 +19,13 @@ byte wasLoad_Mode = 0;
 byte wasLoad_CountAxis = 0;
 byte wasLoad_Limit = 0;
 
+/// Контроллер перменных
 namespace VariableController {
     bool cacheDirection = true;
     bool cacheMode = true;
     bool cacheCanMove = true;
 
+    /// Пробуждение
     void Awake() {
         if (wasLoad_CountAxis == 0) {
             Serial1.println("M20");
@@ -51,6 +53,7 @@ namespace VariableController {
         }
     }
 
+    /// Проверить переменные на изменение значения
     void CheckVariable() {
         if (localCanMove != cacheCanMove) {
             Serial1.println((localCanMove) ? "M0" : "M1");
@@ -86,6 +89,7 @@ namespace VariableController {
         localLimit = LimitToFloat();
     }
 
+    /// Очистить ограничение
     void ClearLimit() {
         for (int i = 0; i < LIMIT_LIST_LENGHT; i++) localLimitMenu[i] = 0;
     }

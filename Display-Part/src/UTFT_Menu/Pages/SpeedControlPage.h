@@ -6,7 +6,7 @@
 
 class SpeedControlPage : public Page {
     private:
-    byte last_limitUI[LIMIT_LIST_LENGHT] = {  0, 0, 0, 0, 0 };
+    int last_limitUI[LIMIT_LIST_LENGHT] = {  0, 0, 0, 0, 0 };
 
     Text uiSymbols[LIMIT_LIST_LENGHT] = { 
         { "0" },
@@ -95,9 +95,9 @@ class SpeedControlPage : public Page {
     }
 
     void Start() override {
-        RepaintAll();
+        for (int i = 0; i < LIMIT_LIST_LENGHT; i++) SetTextByIndex(i);
 
-        for (int i = 0; i < LIMIT_LIST_LENGHT; i++) UpdateTextByIndex(i);
+        RepaintAll();
     }
 
     void Update() override {
@@ -117,7 +117,8 @@ class SpeedControlPage : public Page {
     }
 
     void SetSpeedButtonsPress(int index, bool direction) {
-        localLimitMenu[index] = localLimitMenu[index] + (1 * (direction) ? 1 : -1);
+        localLimitMenu[index] = localLimitMenu[index] + (1 * ((direction) ? 1 : -1));
+        Serial.println(localLimitMenu[index]);
         localLimitMenu[index] = Math::CycleClamp(0, 9, localLimitMenu[index]);
     }
 

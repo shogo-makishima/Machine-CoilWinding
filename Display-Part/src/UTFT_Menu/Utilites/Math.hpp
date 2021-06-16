@@ -14,7 +14,7 @@ namespace Math {
         else return value;
     }
 
-    static int CycleClamp(float min, float max, float value) {
+    static int CycleClamp(int min, int max, int value) {
         if (value > max) return min;
         else if (value < min) return max;
         else return value;
