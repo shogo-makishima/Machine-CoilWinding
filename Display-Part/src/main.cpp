@@ -26,7 +26,14 @@ static int loopMotor(struct pt *pt) {
         }
     PT_END(pt);
 }
+/*
+extern "C" char* sbrk(int incr);
 
+int freeRAM() {
+  char top;
+  return &top - reinterpret_cast<char*>(sbrk(0));
+}
+*/
 static struct pt pt2;
 static int loopDisplay(struct pt *pt) {
     static unsigned long lastTimeBlink = 0;
@@ -34,6 +41,7 @@ static int loopDisplay(struct pt *pt) {
         while (true) {
             PAGES::UpdateCurrentPage();
             TOUCH.Update();
+            // Serial.println(freeRAM());
             lastTimeBlink = millis();
             PT_WAIT_UNTIL(pt, millis() - lastTimeBlink > 10);
         }
@@ -44,15 +52,9 @@ static int loopDisplay(struct pt *pt) {
 void setup() {
     InitSerial();
 
-    while (wasLoad_Mode < 2 || wasLoad_CanMove < 2 || wasLoad_Direction < 2) {
+    while (wasLoad_Mode < 2 || wasLoad_CanMove < 2 || wasLoad_Direction < 2 || wasLoad_Limit < 2) {
         VariableController::Awake();
         Read();
-
-        Serial.println(wasLoad_CountAxis);
-        Serial.println(wasLoad_CanMove);
-        Serial.println(wasLoad_Mode);
-        Serial.println(wasLoad_Direction);
-        Serial.println();
     }
 
     InitDisplay();

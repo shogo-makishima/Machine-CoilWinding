@@ -9,8 +9,11 @@
 class MainPage : public Page {
     private:
     Text counterText = { "0" };
+    Text limitText = { "-" };
     // float lastCounter = 0;
     long lastCounter = 0;
+    float last_Limit = 0.0f;
+    bool last_Mode = false;
 
     public:
     UIObject* localObjects[MAX_OBJECTS_ON_PAGE] = {
@@ -24,11 +27,17 @@ class MainPage : public Page {
         new UIButton("Clear", { 340, 164, 140, 50 }, { 12, 30 }, CLEAR, BLACK, WHITE_L_80, WHITE_L_5, []{}, [] { 
             Serial1.println("M10");
             // localCountAxis = 0.0f;
-            localCountAxis = 0;
+            localCountTurn = 0;
         }),
         //164
 
-        new UITextPanel("VCounter", { 0, 82, 230, 50 }, { 12, 40 }, counterText, BLACK, WHITE_L_80, &FREE_SANS_24PT),
+        new UITextPanel("VCounter", { 0, 82, 230, 50 }, { 12, 40 }, counterText, BLACK, WHITE_L_100, &FREE_SANS_24PT),
+        new UITextPanel("Limit", { 270, 82, 230, 50 }, { 12, 40 }, limitText, BLACK, WHITE_L_100, &FREE_SANS_24PT),
+
+
+        new UIButton("Settings", { 170, 246, 140, 50 }, { 12, 30 }, SETTINGS, BLACK, WHITE_L_80, WHITE_L_5, []{}, [] { 
+            PAGES::ChangePageFormName("SettingsPage");
+        }),
         NULL,
     };
 
@@ -46,6 +55,8 @@ class MainPage : public Page {
 
     void Start() override {
         // counterText.SetText(0);
+
+        UpdateLimitText();
         RepaintAll();
     }
 
@@ -56,12 +67,24 @@ class MainPage : public Page {
             UIObjects[i]->Update();
         }
 
-        if (localCountAxis != lastCounter) {
-            counterText.SetText(localCountAxis);
+        if (localCountTurn != lastCounter) {
+            counterText.SetText(localCountTurn);
             UIObjects[5]->Repaint();
         }
 
-        lastCounter = localCountAxis;
+        if (last_Mode != localMode || last_Limit != localLimit) {
+            UpdateLimitText();
+            UIObjects[6]->Repaint();
+        }
+
+        last_Limit = localLimit;
+        lastCounter = localCountTurn;
+        last_Mode = localMode;
+    }
+
+    void UpdateLimitText() {
+        if (localMode) limitText.SetText(localLimit);
+        else limitText.SetText("-");
     }
 };
 

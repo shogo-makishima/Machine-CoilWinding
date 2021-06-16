@@ -45,6 +45,24 @@ namespace CustomSerial {
         Serial.println();
     }
 
+    /// Отправить данные
+    void SendSettingsData() {
+        customSerial.print("D20 ");
+        customSerial.println((long)Data::dataContainer.countTurn);
+
+        customSerial.print("D21 ");
+        customSerial.println((Data::dataContainer.b_canMove) ? 1 : 0);
+
+        customSerial.print("D22 ");
+        customSerial.println((Data::dataContainer.b_mode) ? 1 : 0);
+
+        customSerial.print("D23 ");
+        customSerial.println((Data::dataContainer.b_direction) ? 1 : 0);
+
+        customSerial.print("D24 ");
+        customSerial.println(Data::dataContainer.limit_countTurn);
+    }
+
     /// Отпарсить буффер
     void ParseBuffer() {
         matchState.Target(BUFFER_READ);
@@ -79,13 +97,21 @@ namespace CustomSerial {
             Data::dataContainer.countTurn = 0;
             CoilWinding::last_countTurn = 0;
             CoilWinding::stepperMotor.setCurrentPosition(0);
-        } else if (strcmp(BUFFER_COMMAND[0], "M11") == 0) {
-            Data::Save();
         } else if (strcmp(BUFFER_COMMAND[0], "M12") == 0) {
+            Data::Save();
+        } else if (strcmp(BUFFER_COMMAND[0], "M13") == 0) {
             Data::Load();
+            CoilWinding::stepperMotor.setCurrentPosition(Data::dataContainer.currentPosition);
+            
+            SendSettingsData();
+        } else if (strcmp(BUFFER_COMMAND[0], "M14") == 0) {
+            Data::Clear();
+            CoilWinding::stepperMotor.setCurrentPosition(Data::dataContainer.currentPosition);
+
+            SendSettingsData();
         } else if (strcmp(BUFFER_COMMAND[0], "M20") == 0) {
             customSerial.print("D20 ");
-            customSerial.println(Data::dataContainer.countTurn);
+            customSerial.println((long)Data::dataContainer.countTurn);
         } else if (strcmp(BUFFER_COMMAND[0], "M21") == 0) {
             customSerial.print("D21 ");
             customSerial.println((Data::dataContainer.b_canMove) ? 1 : 0);
@@ -95,6 +121,11 @@ namespace CustomSerial {
         } else if (strcmp(BUFFER_COMMAND[0], "M23") == 0) {
             customSerial.print("D23 ");
             customSerial.println((Data::dataContainer.b_direction) ? 1 : 0);
+        } else if (strcmp(BUFFER_COMMAND[0], "M24") == 0) {
+            customSerial.print("D24 ");
+            customSerial.println(Data::dataContainer.limit_countTurn);
+        }  else if (strcmp(BUFFER_COMMAND[0], "M30") == 0) {
+            Data::dataContainer.limit_countTurn = atoi(BUFFER_COMMAND[1]) / 10.0f;
         }
     }
 

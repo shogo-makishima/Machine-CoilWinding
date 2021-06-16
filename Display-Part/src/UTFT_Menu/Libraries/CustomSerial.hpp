@@ -59,23 +59,21 @@ namespace CustomSerial {
             } else break;
         }
 
-        if (strcmp(BUFFER_COMMAND[0], "D0") == 0) {
-            PAGES::page->RepaintAll();
-        } else if (strcmp(BUFFER_COMMAND[0], "D20") == 0) {
-            localCountAxis = atol(BUFFER_COMMAND[1]);
-            wasLoad_CountAxis++;
+        if (strcmp(BUFFER_COMMAND[0], "D20") == 0) {
+            localCountTurn = atol(BUFFER_COMMAND[1]);
+            if (wasLoad_CountAxis < 2) wasLoad_CountAxis++;
         }  else if (strcmp(BUFFER_COMMAND[0], "D21") == 0) {
-            if (strcmp(BUFFER_COMMAND[1], "0") == 0) localCanMove = false;
-            else localCanMove = true;
-            wasLoad_CanMove++;
+            localCanMove = !(strcmp(BUFFER_COMMAND[1], "0") == 0);
+            if (wasLoad_CanMove < 2) wasLoad_CanMove++;
         } else if (strcmp(BUFFER_COMMAND[0], "D22") == 0) {
-            if (strcmp(BUFFER_COMMAND[1], "0") == 0) localMode = false;
-            else localMode = true;
-            wasLoad_Mode++;
+            localMode = !(strcmp(BUFFER_COMMAND[1], "0") == 0);
+            if (wasLoad_Mode < 2) wasLoad_Mode++;
         } else if (strcmp(BUFFER_COMMAND[0], "D23") == 0) {
-            if (strcmp(BUFFER_COMMAND[1], "0") == 0) localDirection = false;
-            else localDirection = true;
-            wasLoad_Direction++;
+            localDirection = !(strcmp(BUFFER_COMMAND[1], "0") == 0);
+            if (wasLoad_Direction < 2) wasLoad_Direction++;
+        }  else if (strcmp(BUFFER_COMMAND[0], "D24") == 0) {
+            VariableController::LimitFromFloat(atof(BUFFER_COMMAND[1]));
+            if (wasLoad_Limit < 2) wasLoad_Limit++;
         } 
     }
 

@@ -5,15 +5,19 @@
 namespace Data {
     /// Структура контейнера данных
     struct DataContainer {
-        long countTurn;
+        double countTurn;
         long currentPosition;
+        double limit_countTurn;
         bool b_direction;
         bool b_canMove;
         bool b_mode;
     };
 
     /// Контейнер данных
-    DataContainer dataContainer = { 0, 0, true, false, true };
+    DataContainer dataContainer = { 0.0f, 0, 5.0f, true, false, true };
+
+    /// Контейнер стандартных значений
+    DataContainer defaultData = { 0.0f, 0, 10.5f, true, false, true };
 
     /// Сохранить данные
     void Save() {
@@ -23,8 +27,18 @@ namespace Data {
     /// Загрузить данные
     void Load() {
         eeprom_read_block((void*)&dataContainer, 10, sizeof(dataContainer));
-        Serial.print("[DEBUG] CountTurn: ");
-        Serial.println(dataContainer.countTurn);
+    }
+
+    /// Сбросить настройки
+    void Clear() {
+        for (int i = 0; i < EEPROM.length(); i++) EEPROM.update(i, 0);
+
+        dataContainer.countTurn = defaultData.countTurn;
+        dataContainer.currentPosition = defaultData.currentPosition;
+        dataContainer.limit_countTurn = defaultData.limit_countTurn;
+        dataContainer.b_direction = defaultData.b_direction;
+        dataContainer.b_canMove = defaultData.b_canMove;
+        dataContainer.b_mode = defaultData.b_mode;
     }
 };
 

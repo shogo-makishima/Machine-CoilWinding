@@ -10,6 +10,7 @@
 
 #include "functional"
 
+
 #include "SPI.h"
 #include "Libraries/Adafruit_GFX/Adafruit_GFX.h"
 #include "Libraries/Waveshare_ILI9486/Waveshare_ILI9486.h"
@@ -57,8 +58,6 @@ static TouchEmulator TOUCH = TouchEmulator();
 /// Запустить сериал порт
 static void InitSerial() {
     Serial.begin(115200);
-    Serial.println(TUTORIAL);
-
     Serial1.begin(76800);
 }
 
