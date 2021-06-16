@@ -10,7 +10,7 @@ class SettingsPage : public Page {
 
     public:
     UIObject* localObjects[MAX_OBJECTS_ON_PAGE] = {
-        new UITextPanel("ManageSaves", { 0, 0, 180, 50 }, { 12, 30 }, manageSaves_Text, BLACK, WHITE_L_80),
+        new UITextPanel("ManageSaves", { 0, 0, 180, 50 }, { 12, 30 }, manageSaves_Text, BLACK, WHITE_L_100),
         new UIButton("Save", { 190, 0, 90, 50 }, { 12, 30 }, SAVE, BLACK, WHITE_L_80, WHITE_L_5, []{}, [&, this] {
             Serial1.println("M12");
         }),
@@ -18,7 +18,7 @@ class SettingsPage : public Page {
             Serial1.println("M13");
         }),
         new UIButton("Clear", { 390, 0, 90, 50 }, { 12, 30 }, CLEAR, BLACK, WHITE_L_80, WHITE_L_5, []{}, [&, this] {
-            
+            Serial1.println("M14");
         }),
 
         new UIButton("Apply", { 170, 246, 140, 50 }, { 12, 30 }, APPLY, BLACK, WHITE_L_80, WHITE_L_5, []{}, [&, this] {
@@ -48,6 +48,8 @@ class SettingsPage : public Page {
             if (UIObjects[i] == NULL) break;
             UIObjects[i]->Update();
         }
+
+        localCanMove = false;
     }
 };
 

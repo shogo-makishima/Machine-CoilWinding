@@ -26,14 +26,14 @@ static int loopMotor(struct pt *pt) {
         }
     PT_END(pt);
 }
-
+/*
 extern "C" char* sbrk(int incr);
 
 int freeRAM() {
   char top;
   return &top - reinterpret_cast<char*>(sbrk(0));
 }
-
+*/
 static struct pt pt2;
 static int loopDisplay(struct pt *pt) {
     static unsigned long lastTimeBlink = 0;
@@ -41,7 +41,7 @@ static int loopDisplay(struct pt *pt) {
         while (true) {
             PAGES::UpdateCurrentPage();
             TOUCH.Update();
-            Serial.println(freeRAM());
+            // Serial.println(freeRAM());
             lastTimeBlink = millis();
             PT_WAIT_UNTIL(pt, millis() - lastTimeBlink > 10);
         }

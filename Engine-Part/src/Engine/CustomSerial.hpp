@@ -45,6 +45,24 @@ namespace CustomSerial {
         Serial.println();
     }
 
+    /// Отправить данные
+    void SendSettingsData() {
+        customSerial.print("D20 ");
+        customSerial.println((long)Data::dataContainer.countTurn);
+
+        customSerial.print("D21 ");
+        customSerial.println((Data::dataContainer.b_canMove) ? 1 : 0);
+
+        customSerial.print("D22 ");
+        customSerial.println((Data::dataContainer.b_mode) ? 1 : 0);
+
+        customSerial.print("D23 ");
+        customSerial.println((Data::dataContainer.b_direction) ? 1 : 0);
+
+        customSerial.print("D24 ");
+        customSerial.println(Data::dataContainer.limit_countTurn);
+    }
+
     /// Отпарсить буффер
     void ParseBuffer() {
         matchState.Target(BUFFER_READ);
@@ -83,21 +101,14 @@ namespace CustomSerial {
             Data::Save();
         } else if (strcmp(BUFFER_COMMAND[0], "M13") == 0) {
             Data::Load();
+            CoilWinding::stepperMotor.setCurrentPosition(Data::dataContainer.currentPosition);
             
-            customSerial.print("D20 ");
-            customSerial.println((long)Data::dataContainer.countTurn);
+            SendSettingsData();
+        } else if (strcmp(BUFFER_COMMAND[0], "M14") == 0) {
+            Data::Clear();
+            CoilWinding::stepperMotor.setCurrentPosition(Data::dataContainer.currentPosition);
 
-            customSerial.print("D21 ");
-            customSerial.println((Data::dataContainer.b_canMove) ? 1 : 0);
-
-            customSerial.print("D22 ");
-            customSerial.println((Data::dataContainer.b_mode) ? 1 : 0);
-
-            customSerial.print("D23 ");
-            customSerial.println((Data::dataContainer.b_direction) ? 1 : 0);
-
-            customSerial.print("D24 ");
-            customSerial.println(Data::dataContainer.limit_countTurn);
+            SendSettingsData();
         } else if (strcmp(BUFFER_COMMAND[0], "M20") == 0) {
             customSerial.print("D20 ");
             customSerial.println((long)Data::dataContainer.countTurn);

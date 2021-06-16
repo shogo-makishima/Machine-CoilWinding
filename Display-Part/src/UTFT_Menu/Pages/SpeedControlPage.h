@@ -20,64 +20,64 @@ class SpeedControlPage : public Page {
 
     public:
     UIObject* localObjects[MAX_OBJECTS_ON_PAGE] = {
-        new UIButton("CLEAR", { 0, 8, 480, 48 }, { 12, 12 }, CLEAR, BLACK, WHITE_L_80, WHITE_L_5, []{}, [&, this] {
-            VariableController::ClearLimit();
-        }),
-
-        // TEXT SYMBOL 1
-        new UIButton("X+", { 0, 72, 48, 48 }, { 12, 12 }, "+", BLACK, WHITE_L_80, WHITE_L_5, []{}, [&, this] {
-            SetSpeedButtonsPress(0, true);
-        }),
-        new UITextPanel("X+", { 0, 136, 48, 48 }, { 12, 12 }, uiSymbols[0], BLACK, WHITE_L_80),
-        new UIButton("X+", { 0, 200, 48, 48 }, { 12, 12 }, "-", BLACK, WHITE_L_80, WHITE_L_5, []{}, [&, this] {
-            SetSpeedButtonsPress(0, false);
-        }),
-
-        // TEXT SYMBOL 2
-        new UIButton("X+", { 72, 72, 48, 48 }, { 12, 12 }, "+", BLACK, WHITE_L_80, WHITE_L_5, []{}, [&, this] {
-            SetSpeedButtonsPress(1, true);
-        }),
-        new UITextPanel("X+", { 72, 136, 48, 48 }, { 12, 12 }, uiSymbols[1], BLACK, WHITE_L_80),
-        new UIButton("X+", { 72, 200, 48, 48 }, { 12, 12 }, "-", BLACK, WHITE_L_80, WHITE_L_5, []{}, [&, this] {
-            SetSpeedButtonsPress(1, false);
-        }),
-
-        // TEXT SYMBOL 3
-        new UIButton("X+", { 144, 72, 48, 48 }, { 12, 12 }, "+", BLACK, WHITE_L_80, WHITE_L_5, []{}, [&, this] {
-            SetSpeedButtonsPress(2, true);
-        }),
-        new UITextPanel("X+", { 144, 136, 48, 48 }, { 12, 12 }, uiSymbols[2], BLACK, WHITE_L_80),
-        new UIButton("X+", { 144, 200, 48, 48 }, { 12, 12 }, "-", BLACK, WHITE_L_80, WHITE_L_5, []{}, [&, this] {
-            SetSpeedButtonsPress(2, false);
-        }),
-
-        // TEXT SYMBOL 4
-        new UIButton("X+", { 216, 72, 48, 48 }, { 12, 12 }, "+", BLACK, WHITE_L_80, WHITE_L_5, []{}, [&, this] {
-            SetSpeedButtonsPress(3, true);
-        }),
-        new UITextPanel("X+", { 216, 136, 48, 48 }, { 12, 12 }, uiSymbols[3], BLACK, WHITE_L_80),
-        new UIButton("X+", { 216, 200, 48, 48 }, { 12, 12 }, "-", BLACK, WHITE_L_80, WHITE_L_5, []{}, [&, this] {
-            SetSpeedButtonsPress(3, false);
-        }),
-
-        // TEXT SYMBOL 5
-        new UIButton("X+", { 360, 72, 48, 48 }, { 12, 12 }, "+", BLACK, WHITE_L_80, WHITE_L_5, []{}, [&, this] {
-            SetSpeedButtonsPress(4, true);
-        }),
-        new UITextPanel("X+", { 360, 136, 48, 48 }, { 12, 12 }, uiSymbols[4], BLACK, WHITE_L_80),
-        new UIButton("X+", { 360, 200, 48, 48 }, { 12, 12 }, "-", BLACK, WHITE_L_80, WHITE_L_5, []{}, [&, this] {
-            SetSpeedButtonsPress(4, false);
-        }),
-
-        // Separate symbol
-        new UITextPanel("X+", { 288, 136, 48, 48 }, { 12, 12 }, separteSymbol, BLACK, WHITE_L_80),
-        
-        new UIButton("ENTER", { 0, 264, 480, 48 }, { 12, 12 }, ENTER, BLACK, WHITE_L_80, WHITE_L_5, []{}, [&, this] {
+        new UIButton("ENTER", { 0, 264, 230, 50 }, { 12, 30 }, ENTER, BLACK, WHITE_L_80, WHITE_L_5, []{}, [&, this] {
             Serial1.print("M30 ");
             Serial1.println(VariableController::LimitToFloat() * 10);
             Serial1.println("M12");
             localLimit = VariableController::LimitToFloat();
             PAGES::ChangePageFormName("MainPage");
+        }),
+
+        // TEXT SYMBOL 1
+        new UIButton("X+", { 0, 10, 75, 75 }, { 25, 47 }, "+", BLACK, WHITE_L_80, WHITE_L_5, []{}, [&, this] {
+            SetSpeedButtonsPress(0, true);
+        }, &FREE_SANS_24PT),
+        new UITextPanel("X+", { 0, 90, 75, 75 }, { 25, 52 }, uiSymbols[0], BLACK, WHITE_L_80, &FREE_SANS_24PT),
+        new UIButton("X+", { 0, 170, 75, 75 }, { 25, 47 }, "-", BLACK, WHITE_L_80, WHITE_L_5, []{}, [&, this] {
+            SetSpeedButtonsPress(0, false);
+        }, &FREE_SANS_24PT),
+
+        // TEXT SYMBOL 2
+        new UIButton("X+", { 81, 10, 75, 75 }, { 25, 47 }, "+", BLACK, WHITE_L_80, WHITE_L_5, []{}, [&, this] {
+            SetSpeedButtonsPress(1, true);
+        }, &FREE_SANS_24PT),
+        new UITextPanel("X+", { 81, 90, 75, 75 }, { 25, 52 }, uiSymbols[1], BLACK, WHITE_L_80, &FREE_SANS_24PT),
+        new UIButton("X+", { 81, 170, 75, 75 }, { 25, 47 }, "-", BLACK, WHITE_L_80, WHITE_L_5, []{}, [&, this] {
+            SetSpeedButtonsPress(1, false);
+        }, &FREE_SANS_24PT),
+
+        // TEXT SYMBOL 3
+        new UIButton("X+", { 162, 10, 75, 75 }, { 25, 47 }, "+", BLACK, WHITE_L_80, WHITE_L_5, []{}, [&, this] {
+            SetSpeedButtonsPress(2, true);
+        }, &FREE_SANS_24PT),
+        new UITextPanel("X+", { 162, 90, 75, 75 }, { 25, 52 }, uiSymbols[2], BLACK, WHITE_L_80, &FREE_SANS_24PT),
+        new UIButton("X+", { 162, 170, 75, 75 }, { 25, 47 }, "-", BLACK, WHITE_L_80, WHITE_L_5, []{}, [&, this] {
+            SetSpeedButtonsPress(2, false);
+        }, &FREE_SANS_24PT),
+
+        // TEXT SYMBOL 4
+        new UIButton("X+", { 243, 10, 75, 75 }, { 25, 47 }, "+", BLACK, WHITE_L_80, WHITE_L_5, []{}, [&, this] {
+            SetSpeedButtonsPress(3, true);
+        }, &FREE_SANS_24PT),
+        new UITextPanel("X+", { 243, 90, 75, 75 }, { 25, 52 }, uiSymbols[3], BLACK, WHITE_L_80, &FREE_SANS_24PT),
+        new UIButton("X+", { 243, 170, 75, 75 }, { 25, 47 }, "-", BLACK, WHITE_L_80, WHITE_L_5, []{}, [&, this] {
+            SetSpeedButtonsPress(3, false);
+        }, &FREE_SANS_24PT),
+
+        // TEXT SYMBOL 5
+        new UIButton("X+", { 405, 10, 75, 75 }, { 25, 47 }, "+", BLACK, WHITE_L_80, WHITE_L_5, []{}, [&, this] {
+            SetSpeedButtonsPress(4, true);
+        }, &FREE_SANS_24PT),
+        new UITextPanel("X+", { 405, 90, 75, 75 }, { 25, 52 }, uiSymbols[4], BLACK, WHITE_L_80, &FREE_SANS_24PT),
+        new UIButton("X+", { 405, 170, 75, 75 }, { 25, 47 }, "-", BLACK, WHITE_L_80, WHITE_L_5, []{}, [&, this] {
+            SetSpeedButtonsPress(4, false);
+        }, &FREE_SANS_24PT),
+
+        // Separate symbol
+        new UITextPanel("X+", { 324, 90, 75, 75 }, { 25, 52 }, separteSymbol, BLACK, WHITE_L_80, &FREE_SANS_24PT),
+        
+        new UIButton("CLEAR", { 270, 264, 230, 50 }, { 12, 30 }, CLEAR, BLACK, WHITE_L_80, WHITE_L_5, []{}, [&, this] {
+            VariableController::ClearLimit();
         }),
         NULL,
     };

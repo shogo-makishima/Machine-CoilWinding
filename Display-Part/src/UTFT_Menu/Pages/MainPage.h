@@ -31,8 +31,8 @@ class MainPage : public Page {
         }),
         //164
 
-        new UITextPanel("VCounter", { 0, 82, 230, 50 }, { 12, 40 }, counterText, BLACK, WHITE_L_80, &FREE_SANS_24PT),
-        new UITextPanel("Limit", { 270, 82, 230, 50 }, { 12, 40 }, limitText, BLACK, WHITE_L_80, &FREE_SANS_24PT),
+        new UITextPanel("VCounter", { 0, 82, 230, 50 }, { 12, 40 }, counterText, BLACK, WHITE_L_100, &FREE_SANS_24PT),
+        new UITextPanel("Limit", { 270, 82, 230, 50 }, { 12, 40 }, limitText, BLACK, WHITE_L_100, &FREE_SANS_24PT),
 
 
         new UIButton("Settings", { 170, 246, 140, 50 }, { 12, 30 }, SETTINGS, BLACK, WHITE_L_80, WHITE_L_5, []{}, [] { 

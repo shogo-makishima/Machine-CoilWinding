@@ -58,8 +58,6 @@ static TouchEmulator TOUCH = TouchEmulator();
 /// Запустить сериал порт
 static void InitSerial() {
     Serial.begin(115200);
-    Serial.println(TUTORIAL);
-
     Serial1.begin(76800);
 }
 
