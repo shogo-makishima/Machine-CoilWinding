@@ -85,6 +85,10 @@ namespace VariableController {
 
         localLimit = LimitToFloat();
     }
+
+    void ClearLimit() {
+        for (int i = 0; i < LIMIT_LIST_LENGHT; i++) localLimitMenu[i] = 0;
+    }
 }
 
 #endif

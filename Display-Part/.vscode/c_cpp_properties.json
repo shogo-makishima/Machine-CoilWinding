@@ -20,8 +20,6 @@
                 "C:/Users/Robostart4/.platformio/packages/framework-arduino-sam/system/CMSIS/CMSIS/Include",
                 "C:/Users/Robostart4/.platformio/packages/framework-arduino-sam/system/CMSIS/Device/ATMEL",
                 "C:/Users/Robostart4/.platformio/packages/framework-arduino-sam/variants/arduino_due_x",
-                "C:/GITHUB/Wideus-Studio/Machine-CoilWinding/Display-Part/lib/ArduinoThread",
-                "C:/GITHUB/Wideus-Studio/Machine-CoilWinding/Display-Part/lib/Scheduler/src",
                 "C:/GITHUB/Wideus-Studio/Machine-CoilWinding/Display-Part/lib/pt",
                 "C:/Users/Robostart4/.platformio/packages/framework-arduino-sam/libraries/HID/src",
                 ""
@@ -41,8 +39,6 @@
                     "C:/Users/Robostart4/.platformio/packages/framework-arduino-sam/system/CMSIS/CMSIS/Include",
                     "C:/Users/Robostart4/.platformio/packages/framework-arduino-sam/system/CMSIS/Device/ATMEL",
                     "C:/Users/Robostart4/.platformio/packages/framework-arduino-sam/variants/arduino_due_x",
-                    "C:/GITHUB/Wideus-Studio/Machine-CoilWinding/Display-Part/lib/ArduinoThread",
-                    "C:/GITHUB/Wideus-Studio/Machine-CoilWinding/Display-Part/lib/Scheduler/src",
                     "C:/GITHUB/Wideus-Studio/Machine-CoilWinding/Display-Part/lib/pt",
                     "C:/Users/Robostart4/.platformio/packages/framework-arduino-sam/libraries/HID/src",
                     ""

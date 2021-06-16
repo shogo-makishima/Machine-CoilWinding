@@ -24,11 +24,6 @@ namespace Data {
     /// Загрузить данные
     void Load() {
         eeprom_read_block((void*)&dataContainer, 10, sizeof(dataContainer));
-        Serial.print("[DEBUG] CountTurn: ");
-        Serial.println(dataContainer.countTurn);
-
-        dataContainer.countTurn = 0.0f;
-        dataContainer.limit_countTurn = 5.0f;
     }
 };
 

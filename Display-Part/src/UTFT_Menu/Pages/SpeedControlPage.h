@@ -21,7 +21,7 @@ class SpeedControlPage : public Page {
     public:
     UIObject* localObjects[MAX_OBJECTS_ON_PAGE] = {
         new UIButton("CLEAR", { 0, 8, 480, 48 }, { 12, 12 }, CLEAR, BLACK, WHITE_L_80, WHITE_L_5, []{}, [&, this] {
-            // CoilWinding::ClearVSpeed();
+            VariableController::ClearLimit();
         }),
 
         // TEXT SYMBOL 1
@@ -75,6 +75,7 @@ class SpeedControlPage : public Page {
         new UIButton("ENTER", { 0, 264, 480, 48 }, { 12, 12 }, ENTER, BLACK, WHITE_L_80, WHITE_L_5, []{}, [&, this] {
             Serial1.print("M30 ");
             Serial1.println(VariableController::LimitToFloat() * 10);
+            Serial1.println("M12");
             localLimit = VariableController::LimitToFloat();
             PAGES::ChangePageFormName("MainPage");
         }),

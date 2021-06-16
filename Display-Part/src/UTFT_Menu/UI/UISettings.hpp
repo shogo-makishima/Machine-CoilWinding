@@ -22,6 +22,11 @@
 #define RUN_OR_STOP   "Run || Stop"
 #define MODE          "Mode"
 #define DIRECTION     "+ | -"
+#define SAVE          "Save"
+#define LOAD          "Load"
+#define APPLY         "Apply"
+#define SETTINGS      "Settings"
+#define MANAGE_SAVES  "Manage saves"
 
 #define TUTORIAL "<----------->\nCommands:\n1. t X Y - эмуляция touchsreen'а.\n2. c N - сменить меню по его названию.\n<----------->\n\n"
 
