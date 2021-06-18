@@ -11,7 +11,7 @@ class MainPage : public Page {
     Text counterText = { "0" };
     Text limitText = { "-" };
     // float lastCounter = 0;
-    long lastCounter = 0;
+    float lastCounter = 0;
     float last_Limit = 0.0f;
     bool last_Mode = false;
 
@@ -38,11 +38,13 @@ class MainPage : public Page {
         new UIButton("Settings", { 170, 246, 140, 50 }, { 12, 30 }, SETTINGS, BLACK, WHITE_L_80, WHITE_L_5, []{}, [] { 
             PAGES::ChangePageFormName("SettingsPage");
         }),
+
+        /// new UIProgressBar("Value", { 0, 246, 140, 50 }, 0.0f, localLimit, 5, localCountTurn, WHITE_L_80, WHITE_L_60, WHITE_L_40),
         NULL,
     };
 
     MainPage(char* getName) {
-        Name = getName;
+        strcpy(Name, getName);
 
         for (int i = 0; i < MAX_OBJECTS_ON_PAGE; i++) {
             UIObjects[i] = localObjects[i];

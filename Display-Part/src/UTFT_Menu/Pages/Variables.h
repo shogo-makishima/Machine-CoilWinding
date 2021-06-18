@@ -8,7 +8,7 @@
 bool localCanMove = true;
 bool localDirection = true;
 bool localMode = true;
-long localCountTurn = 0;
+float localCountTurn = 0;
 
 float localLimit = 0.0f;
 int localLimitMenu[LIMIT_LIST_LENGHT] = { 0, 0, 0, 0, 0 };

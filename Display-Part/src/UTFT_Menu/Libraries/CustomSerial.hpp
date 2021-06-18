@@ -60,7 +60,7 @@ namespace CustomSerial {
         }
 
         if (strcmp(BUFFER_COMMAND[0], "D20") == 0) {
-            localCountTurn = atol(BUFFER_COMMAND[1]);
+            localCountTurn = atof(BUFFER_COMMAND[1]);
             if (wasLoad_CountAxis < 2) wasLoad_CountAxis++;
         }  else if (strcmp(BUFFER_COMMAND[0], "D21") == 0) {
             localCanMove = !(strcmp(BUFFER_COMMAND[1], "0") == 0);

@@ -28,7 +28,7 @@ class SettingsPage : public Page {
     };
 
     SettingsPage(char* getName) {
-        Name = getName;
+        strcpy(Name, getName);
         
         for (int i = 0; i < MAX_OBJECTS_ON_PAGE; i++) {
             UIObjects[i] = localObjects[i];

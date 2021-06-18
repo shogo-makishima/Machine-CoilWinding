@@ -83,7 +83,7 @@ class SpeedControlPage : public Page {
     };
 
     SpeedControlPage(char* getName) {
-        Name = getName;
+        strcpy(Name, getName);
 
         for (int i = 0; i < MAX_OBJECTS_ON_PAGE; i++) {
             UIObjects[i] = localObjects[i];
@@ -118,7 +118,6 @@ class SpeedControlPage : public Page {
 
     void SetSpeedButtonsPress(int index, bool direction) {
         localLimitMenu[index] = localLimitMenu[index] + (1 * ((direction) ? 1 : -1));
-        Serial.println(localLimitMenu[index]);
         localLimitMenu[index] = Math::CycleClamp(0, 9, localLimitMenu[index]);
     }
 

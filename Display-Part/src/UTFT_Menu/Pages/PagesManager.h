@@ -12,6 +12,8 @@ namespace PAGES {
 
     /// Текущая старница
     Page* page = NULL;
+    /// Имя предыдущей страницы
+    char lastPageName[32] = "MainPage";
 
     /// Создание    
     void Init(Page** getPages) {
@@ -32,8 +34,10 @@ namespace PAGES {
     void ChangePageFormName(const char* name) {
         for (int i = 0; i < MAX_PAGES; i++) {
             if (Pages[i] == NULL) break;
-            else if (strcmp(Pages[i]->Name, name) == 0) { 
+            else if (strcmp(Pages[i]->Name, name) == 0) {
+                strcpy(lastPageName, page->Name); 
                 page = Pages[i];
+                Serial.println(lastPageName);
                 break;
             }
             
