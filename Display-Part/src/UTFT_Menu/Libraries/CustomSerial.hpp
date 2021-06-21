@@ -74,7 +74,10 @@ namespace CustomSerial {
         }  else if (strcmp(BUFFER_COMMAND[0], "D24") == 0) {
             VariableController::LimitFromFloat(atof(BUFFER_COMMAND[1]));
             if (wasLoad_Limit < 2) wasLoad_Limit++;
-        } 
+        }  else if (strcmp(BUFFER_COMMAND[0], "D25") == 0) {
+            localMainDirection = !(strcmp(BUFFER_COMMAND[1], "0") == 0);
+            if (wasLoad_MainDirection < 2) wasLoad_MainDirection++;
+        }  
     }
 
     /// Считать байт из буфера

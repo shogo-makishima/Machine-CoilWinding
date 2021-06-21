@@ -10,8 +10,8 @@
 #define COOLER_PIN 9
 
 #define STEPS 200 // Количество шагов на один оборот
-#define MSPEED 100 // Масимальная скорость
-#define SSPEED 100 // Базовая скорость
+#define MSPEED 200 // Масимальная скорость
+#define SSPEED 200 // Базовая скорость
 
 /// Намотка катушки
 namespace CoilWinding {
@@ -69,18 +69,19 @@ namespace CoilWinding {
             Data::dataContainer.currentPosition = stepperMotor.currentPosition();
 
             if (Data::dataContainer.b_mode) {
-                if (double(Data::dataContainer.limit_countTurn) - (Data::dataContainer.b_direction ? 1 : -1) * Data::dataContainer.countTurn < 0) {
+                if (double(Data::dataContainer.limit_countTurn) - (Data::dataContainer.b_direction ? 1 : -1) * (Data::dataContainer.b_mainDirection ? 1 : -1) * Data::dataContainer.countTurn < 0) {
                     SetBlock(false);
                     return;
                 }
-                if (Data::dataContainer.countTurn < 0 && !Data::dataContainer.b_direction) {
+                // Закомментировать, если не нужно ограничить вращение нулем
+                if (Data::dataContainer.countTurn < 0 && ((!Data::dataContainer.b_direction && Data::dataContainer.b_mainDirection) || (Data::dataContainer.b_direction && !Data::dataContainer.b_mainDirection))) {
                     SetBlock(false);
                     return;
                 }
             }
 
             SetBlock(true);
-            stepperMotor.setSpeed(SSPEED * (Data::dataContainer.b_direction ? -1 : 1) * VSpeed);
+            stepperMotor.setSpeed(SSPEED * (Data::dataContainer.b_direction ? -1 : 1) * (Data::dataContainer.b_mainDirection ? 1 : -1) * VSpeed);
             stepperMotor.runSpeed();
         } else {
             SetBlock(false);

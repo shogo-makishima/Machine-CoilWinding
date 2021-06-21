@@ -11,13 +11,14 @@ namespace Data {
         bool b_direction;
         bool b_canMove;
         bool b_mode;
+        bool b_mainDirection;
     };
 
     /// Контейнер данных
-    DataContainer dataContainer = { 0.0f, 0, 5.0f, true, false, true };
+    DataContainer dataContainer = { 0.0f, 0, 5.0f, true, false, true, true };
 
     /// Контейнер стандартных значений
-    DataContainer defaultData = { 0.0f, 0, 10.5f, true, false, true };
+    DataContainer defaultData = { 0.0f, 0, 10.5f, true, false, true, true };
 
     /// Сохранить данные
     void Save() {
@@ -39,6 +40,7 @@ namespace Data {
         dataContainer.b_direction = defaultData.b_direction;
         dataContainer.b_canMove = defaultData.b_canMove;
         dataContainer.b_mode = defaultData.b_mode;
+        dataContainer.b_mainDirection = defaultData.b_mainDirection;
     }
 };
 

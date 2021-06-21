@@ -22,12 +22,17 @@
     #define SPEED         "Limit"
     #define RUN_OR_STOP   "Run || Stop"
     #define MODE          "Mode"
-    #define DIRECTION     "+ | -"
+    #define DIRECTION     "Reverse"
     #define SAVE          "Save"
     #define LOAD          "Load"
     #define APPLY         "Apply"
+    #define BACK          "Back"
     #define SETTINGS      "Settings"
     #define MANAGE_SAVES  "Manage saves"
+    #define C_DIRECTION   "Clockwise"
+    #define D_DIRECTION   "Turn Direction"
+    #define P_DIRECTION   "->"
+    #define M_DIRECTION   "<-"
 #endif
 #if LANGUAGE == 1
     #include "UTFT_Menu/Libraries/Adafruit_GFX/FontsRus/FreeSans14.h"

@@ -17,14 +17,14 @@ class MainPage : public Page {
 
     public:
     UIObject* localObjects[MAX_OBJECTS_ON_PAGE] = {
-        new UIButton("SpeedPage", { 0, 0, 230, 50 }, { 12, 30 }, SPEED, BLACK, WHITE_L_80, WHITE_L_5, []{}, [] { 
+        new UIButton("SpeedPage", { 0, 0, 230, 50 }, { 12, 30 }, SPEED, BLACK, WHITE_L_80, WHITE_L_5, []{}, [&] {
             if (localMode) PAGES::ChangePageFormName("SpeedControlPage");
         }),
         new UICheckBox("Mode", { 270, 0, 230, 50 }, { 12, 30 }, MODE, BLACK, RED, GREEN, localMode),
         
         new UICheckBox("Run || Stop", { 0, 164, 140, 50 }, { 12, 30 }, RUN_OR_STOP, BLACK, RED, GREEN, localCanMove),
         new UICheckBox("Direction", { 170, 164, 140, 50 }, { 12, 30 }, DIRECTION, BLACK, RED, GREEN, localDirection),
-        new UIButton("Clear", { 340, 164, 140, 50 }, { 12, 30 }, CLEAR, BLACK, WHITE_L_80, WHITE_L_5, []{}, [] { 
+        new UIButton("Clear", { 340, 164, 140, 50 }, { 12, 30 }, CLEAR, BLACK, WHITE_L_80, WHITE_L_5, []{}, [&] { 
             Serial1.println("M10");
             // localCountAxis = 0.0f;
             localCountTurn = 0;
@@ -35,7 +35,7 @@ class MainPage : public Page {
         new UITextPanel("Limit", { 270, 82, 230, 50 }, { 12, 40 }, limitText, BLACK, WHITE_L_100, &FREE_SANS_24PT),
 
 
-        new UIButton("Settings", { 170, 246, 140, 50 }, { 12, 30 }, SETTINGS, BLACK, WHITE_L_80, WHITE_L_5, []{}, [] { 
+        new UIButton("Settings", { 170, 246, 140, 50 }, { 12, 30 }, SETTINGS, BLACK, WHITE_L_80, WHITE_L_5, []{}, [&] {
             PAGES::ChangePageFormName("SettingsPage");
         }),
 

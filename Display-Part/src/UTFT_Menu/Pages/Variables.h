@@ -8,6 +8,7 @@
 bool localCanMove = true;
 bool localDirection = true;
 bool localMode = true;
+bool localMainDirection = true;
 float localCountTurn = 0;
 
 float localLimit = 0.0f;
@@ -18,12 +19,16 @@ byte wasLoad_Direction = 0;
 byte wasLoad_Mode = 0;
 byte wasLoad_CountAxis = 0;
 byte wasLoad_Limit = 0;
+byte wasLoad_MainDirection = 0;
 
 /// Контроллер перменных
 namespace VariableController {
     bool cacheDirection = true;
+    bool cacheMainDirection = true;
     bool cacheMode = true;
     bool cacheCanMove = true;
+
+    void UpdateCache();
 
     /// Пробуждение
     void Awake() {
@@ -51,6 +56,13 @@ namespace VariableController {
             Serial1.println("M24");
             wasLoad_Limit++;
         }
+
+        if (wasLoad_Limit == 2 && wasLoad_MainDirection == 0) {
+            Serial1.println("M25");
+            wasLoad_MainDirection++;
+        }
+
+        UpdateCache();
     }
 
     /// Проверить переменные на изменение значения
@@ -64,13 +76,23 @@ namespace VariableController {
         }
 
         if (localMode != cacheMode) {
-            Serial.println(1);
             Serial1.println((localMode) ? "M7" : "M8");
         }
 
+        if (localMainDirection != cacheMainDirection) {
+            Serial1.print("M31 ");
+            Serial1.println((localMainDirection) ? 1 : 0);
+            Serial1.println("M25");
+        }
+
+        UpdateCache();
+    }
+
+    void UpdateCache() {
         cacheCanMove = localCanMove;
         cacheDirection = localDirection;
         cacheMode = localMode;
+        cacheMainDirection = localMainDirection;
     }
 
     float LimitToFloat() {

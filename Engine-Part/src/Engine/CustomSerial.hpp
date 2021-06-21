@@ -124,8 +124,13 @@ namespace CustomSerial {
         } else if (strcmp(BUFFER_COMMAND[0], "M24") == 0) {
             customSerial.print("D24 ");
             customSerial.println(Data::dataContainer.limit_countTurn);
+        } else if (strcmp(BUFFER_COMMAND[0], "M25") == 0) {
+            customSerial.print("D25 ");
+            customSerial.println(Data::dataContainer.b_mainDirection);
         }  else if (strcmp(BUFFER_COMMAND[0], "M30") == 0) {
             Data::dataContainer.limit_countTurn = atoi(BUFFER_COMMAND[1]) / 10.0f;
+        }   else if (strcmp(BUFFER_COMMAND[0], "M31") == 0) {
+            Data::dataContainer.b_mainDirection = !(strcmp(BUFFER_COMMAND[1], "0") == 0);
         }
     }
 

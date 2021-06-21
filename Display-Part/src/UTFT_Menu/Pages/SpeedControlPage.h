@@ -113,7 +113,7 @@ class SpeedControlPage : public Page {
             UIObjects[i]->Update();
         }
 
-        localCanMove = false;
+        // localCanMove = false;
     }
 
     void SetSpeedButtonsPress(int index, bool direction) {
