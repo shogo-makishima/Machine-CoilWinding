@@ -23,14 +23,6 @@ namespace CoilWinding {
 
     /// Скорость вращения
     static float VSpeed = 1.0f; // [0; 1]
-    /// Первый ли запуск после включения питания
-    static bool VFirstLoad = true;
-    /// Максимальное кол-во оборотов INT
-    static long int VMaxINT = 0; // size = 4 byte
-
-    /// Максимальное кол-во оборотов ARRAY
-    static int VMax[6] = { 0, 0, 0, 0, 0, 0, };
-
     /// Предыдущее кол-во оборотов
     double last_countTurn = 0.0f;
 
@@ -40,7 +32,7 @@ namespace CoilWinding {
     long positions[1] = { STEPS };
 
     /// Установить скорость вращения
-    void SetSpeed(int);
+    void SetSpeed(int speed);
 
     /// Создание
     void Init() {
@@ -89,7 +81,7 @@ namespace CoilWinding {
             }
 
             SetBlock(true);
-            stepperMotor.setSpeed(SSPEED * (Data::dataContainer.b_direction ? -1 : 1) * (Data::dataContainer.b_mainDirection ? 1 : -1) * VSpeed);
+            stepperMotor.setSpeed(Data::dataContainer.speed * (Data::dataContainer.b_direction ? -1 : 1) * (Data::dataContainer.b_mainDirection ? 1 : -1) * VSpeed);
             stepperMotor.runSpeed();
         } else {
             SetBlock(false);

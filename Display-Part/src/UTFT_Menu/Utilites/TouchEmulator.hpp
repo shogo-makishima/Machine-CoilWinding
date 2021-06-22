@@ -1,12 +1,14 @@
 #ifndef _TOUCHEMULATOR_H_
 #define _TOUCHEMULATOR_H_
 
+#include "Timer.h"
 #include "Stream.h"
 #include "UTFT_Menu/Menus.h"
 
 #define TOUCH_COUNT 4
 #define TOUCH_RANGE 10
 #define TOUCH_COUNT_Z 4
+#define DEATH_TIMER 250
 
 /// Было ли касание
 static bool b_isTouch = false;
@@ -19,6 +21,10 @@ class TouchEmulator {
     public:
     /// Координаты
     int x = 0, y = 0, z = 0;
+    /// Можно ли читать значения с тачскрина
+    bool b_canReadTouch = true;
+    /// Мертвый таймер, обнуляющийся при переходе на дургую страницу
+    Timer deathTimer = Timer(DEATH_TIMER, [&] { b_canReadTouch = true; });
 
     /// Запустить тач
     void InitTouch() {}
@@ -27,6 +33,8 @@ class TouchEmulator {
 
     /// Проверить касание
     void CheckTouch(TSPoint point) {
+        if (!b_canReadTouch) return;
+
         if (point.z == 0 && i_touchZ < TOUCH_RANGE) {
             i_touchZ++;
             return;
@@ -62,7 +70,7 @@ class TouchEmulator {
     void Update() {
         TSPoint point = GLCD.getPoint();
         GLCD.normalizeTsPoint(point);
-
+        deathTimer.Update();
         CheckTouch(point);
         // touchTimer.Update();
     }
