@@ -1,5 +1,13 @@
 #include "Engine/Engine.h"
 
+#include "Engine/Timer.h"
+
+void SendData();
+
+Timer sendDataTimer = Timer(500, [] {
+	SendData();
+});
+
 void setup() {
 	Serial.begin(115200);
 	Serial.println("DEBUG CONSOLE");
@@ -22,10 +30,16 @@ void loop() {
 		CustomSerial::b_bufferIsFull = false;
 	}
 
+	sendDataTimer.Update();
+}
+
+void SendData() {
 	if (Math::Round(Data::dataContainer.countTurn, 1) != Math::Round(CoilWinding::last_countTurn, 1)) {
         CustomSerial::customSerial.print("D20 ");
 
         CustomSerial::customSerial.println(Math::Round(Data::dataContainer.countTurn, 1), 1);
+
+		sendDataTimer.Reset();
     }
 
 	CoilWinding::last_countTurn = Data::dataContainer.countTurn;

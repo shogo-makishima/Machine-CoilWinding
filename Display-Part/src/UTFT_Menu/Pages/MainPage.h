@@ -17,8 +17,8 @@ class MainPage : public Page {
 
     public:
     UIObject* localObjects[MAX_OBJECTS_ON_PAGE] = {
-        new UIButton("SpeedPage", { 0, 0, 230, 50 }, { 12, 30 }, SPEED, BLACK, WHITE_L_80, WHITE_L_5, []{}, [&] {
-            if (localMode) PAGES::ChangePageFormName("SpeedControlPage");
+        new UIButton("SpeedPage", { 0, 0, 230, 50 }, { 12, 30 }, LIMIT, BLACK, WHITE_L_80, WHITE_L_5, []{}, [&] {
+            if (localMode) PAGES::ChangePageFormName("LimitPage");
         }),
         new UICheckBox("Mode", { 270, 0, 230, 50 }, { 12, 30 }, MODE, BLACK, RED, GREEN, localMode),
         
@@ -39,7 +39,10 @@ class MainPage : public Page {
             PAGES::ChangePageFormName("SettingsPage");
         }),
 
-        /// new UIProgressBar("Value", { 0, 246, 140, 50 }, 0.0f, localLimit, 5, localCountTurn, WHITE_L_80, WHITE_L_60, WHITE_L_40),
+        new UIButton("Speed", { 0, 246, 140, 50 }, { 12, 30 }, SPEED, BLACK, WHITE_L_80, WHITE_L_5, []{}, [&] {
+            PAGES::ChangePageFormName("SpeedPage");
+        }),
+
         NULL,
     };
 

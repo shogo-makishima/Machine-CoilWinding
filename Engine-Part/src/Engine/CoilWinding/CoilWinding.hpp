@@ -10,8 +10,8 @@
 #define COOLER_PIN 9
 
 #define STEPS 200 // Количество шагов на один оборот
-#define MSPEED 200 // Масимальная скорость
-#define SSPEED 200 // Базовая скорость
+#define MSPEED 300 // Масимальная скорость
+#define SSPEED 300 // Базовая скорость
 
 /// Намотка катушки
 namespace CoilWinding {
@@ -39,6 +39,9 @@ namespace CoilWinding {
     /// Для вращения двигателей
     long positions[1] = { STEPS };
 
+    /// Установить скорость вращения
+    void SetSpeed(int);
+
     /// Создание
     void Init() {
         pinMode(PEDAL_PIN, INPUT);
@@ -48,8 +51,13 @@ namespace CoilWinding {
         pinMode(COOLER_PIN, OUTPUT);
 
         stepperMotor.setCurrentPosition(Data::dataContainer.currentPosition);
-        stepperMotor.setMaxSpeed(MSPEED); // Устанавливаем скорость вращения об./мин.
-        stepperMotor.setSpeed(-SSPEED); // Устанавливаем скорость вращения об./мин.
+        SetSpeed(Data::dataContainer.speed);
+    }
+
+    /// Установить скорость вращения
+    void SetSpeed(int speed) {
+        stepperMotor.setMaxSpeed(speed); // Устанавливаем скорость вращения об./мин.
+        stepperMotor.setSpeed(-speed); // Устанавливаем скорость вращения об./мин.
     }
 
     /// Установить блок катушек

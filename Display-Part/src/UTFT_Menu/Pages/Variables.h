@@ -4,6 +4,7 @@
 // #include "EEPROM.h"
 
 #define LIMIT_LIST_LENGHT 5
+#define SPEED_LIST_LENGHT 4
 
 bool localCanMove = true;
 bool localDirection = true;
@@ -14,12 +15,16 @@ float localCountTurn = 0;
 float localLimit = 0.0f;
 int localLimitMenu[LIMIT_LIST_LENGHT] = { 0, 0, 0, 0, 0 };
 
+int localSpeed = 200;
+int localSpeedMenu[SPEED_LIST_LENGHT] = { 0, 0, 0, 0 };
+
 byte wasLoad_CanMove = 0;
 byte wasLoad_Direction = 0;
 byte wasLoad_Mode = 0;
 byte wasLoad_CountAxis = 0;
 byte wasLoad_Limit = 0;
 byte wasLoad_MainDirection = 0;
+byte wasLoad_Speed = 0;
 
 /// Контроллер перменных
 namespace VariableController {
@@ -60,6 +65,11 @@ namespace VariableController {
         if (wasLoad_Limit == 2 && wasLoad_MainDirection == 0) {
             Serial1.println("M25");
             wasLoad_MainDirection++;
+        }
+
+        if (wasLoad_MainDirection == 2 && wasLoad_Speed == 0) {
+            Serial1.println("M26");
+            wasLoad_Speed++;
         }
 
         UpdateCache();
@@ -109,6 +119,22 @@ namespace VariableController {
         }
 
         localLimit = LimitToFloat();
+    }
+
+    int SpeedToInt() {
+        return localSpeedMenu[0] * 1000 + localSpeedMenu[1] * 100 + localSpeedMenu[2] * 10 + localSpeedMenu[3] * 1;
+    }
+
+    void SpeedFromInt(int value) {
+        int temp_speed = value;
+
+        for (int i = 0; i < SPEED_LIST_LENGHT; i++) {
+            int temp_dec = temp_speed / pow(10, SPEED_LIST_LENGHT - (i + 1));
+            localSpeedMenu[i] = temp_dec;
+            temp_speed -= temp_dec * pow(10, SPEED_LIST_LENGHT - (i + 1));
+        }
+
+        localSpeed = SpeedToInt();
     }
 
     /// Очистить ограничение
