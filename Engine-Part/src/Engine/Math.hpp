@@ -23,6 +23,10 @@ namespace Math {
     static bool InRange(int min, int max, int value) {
         return (value > min && value < max);
     }
+
+    static float Round(float value, int point=1) {
+        return round(value*pow(10, point))/pow(10, point);
+    }
 }
 
 #endif

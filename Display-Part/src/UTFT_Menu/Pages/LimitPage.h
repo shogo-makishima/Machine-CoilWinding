@@ -4,7 +4,7 @@
 #include "PagesManager.h"
 #include "UTFT_Menu/Menus.h"
 
-class SpeedControlPage : public Page {
+class LimitPage : public Page {
     private:
     int last_limitUI[LIMIT_LIST_LENGHT] = {  0, 0, 0, 0, 0 };
 
@@ -22,9 +22,10 @@ class SpeedControlPage : public Page {
     UIObject* localObjects[MAX_OBJECTS_ON_PAGE] = {
         new UIButton("ENTER", { 0, 264, 230, 50 }, { 12, 30 }, ENTER, BLACK, WHITE_L_80, WHITE_L_5, []{}, [&, this] {
             Serial1.print("M30 ");
-            Serial1.println(VariableController::LimitToFloat() * 10);
-            Serial1.println("M12");
             localLimit = VariableController::LimitToFloat();
+            Serial1.println(localLimit * 10);
+            Serial1.println("M12");
+
             PAGES::ChangePageFormName("MainPage");
         }),
 
@@ -82,8 +83,8 @@ class SpeedControlPage : public Page {
         NULL,
     };
 
-    SpeedControlPage(char* getName) {
-        Name = getName;
+    LimitPage(char* getName) {
+        strcpy(Name, getName);
 
         for (int i = 0; i < MAX_OBJECTS_ON_PAGE; i++) {
             UIObjects[i] = localObjects[i];
@@ -113,12 +114,11 @@ class SpeedControlPage : public Page {
             UIObjects[i]->Update();
         }
 
-        localCanMove = false;
+        // localCanMove = false;
     }
 
     void SetSpeedButtonsPress(int index, bool direction) {
         localLimitMenu[index] = localLimitMenu[index] + (1 * ((direction) ? 1 : -1));
-        Serial.println(localLimitMenu[index]);
         localLimitMenu[index] = Math::CycleClamp(0, 9, localLimitMenu[index]);
     }
 

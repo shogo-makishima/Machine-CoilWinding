@@ -19,22 +19,28 @@
 
     #define ENTER         "Enter"
     #define CLEAR         "Clear"
-    #define SPEED         "Limit"
+    #define LIMIT         "Limit"
     #define RUN_OR_STOP   "Run || Stop"
     #define MODE          "Mode"
-    #define DIRECTION     "+ | -"
+    #define DIRECTION     "Reverse"
     #define SAVE          "Save"
     #define LOAD          "Load"
     #define APPLY         "Apply"
+    #define BACK          "Back"
     #define SETTINGS      "Settings"
     #define MANAGE_SAVES  "Manage saves"
+    #define C_DIRECTION   "Clockwise"
+    #define D_DIRECTION   "Turn Direction"
+    #define P_DIRECTION   "->"
+    #define M_DIRECTION   "<-"
+    #define SPEED         "Speed"
 #endif
 #if LANGUAGE == 1
-    #include "UTFT_Menu/Libraries/Adafruit_GFX/FontsRus/FreeSans14.h"
-    #define DEFAULT_FONT FreeSans14pt8b
+    #include "UTFT_Menu/Libraries/Adafruit_GFX/FontsRus/FreeMonoOblique14.h"
+    #define DEFAULT_FONT FreeMonoOblique14pt8b
 
-    #include "UTFT_Menu/Libraries/Adafruit_GFX/FontsRus/FreeSansBold18.h"
-    #define FREE_SANS_24PT FreeSansBold18pt8b
+    #include "UTFT_Menu/Libraries/Adafruit_GFX/FontsRus/FreeMonoBold18.h"
+    #define FREE_SANS_24PT FreeMonoBold18pt8b
 
     #define ENTER         "Принять"
     #define CLEAR         "Очистить"
@@ -44,9 +50,11 @@
     #define DIRECTION     "Направление"
     #define SAVE          "Сохранить"
     #define LOAD          "Загрузить"
-    #define APPLY         "Принять"
+    #define BACK          "Назад"
     #define SETTINGS      "Настройки"
     #define MANAGE_SAVES  "Сохранение"
+    #define C_DIRECTION   "По Ч.С."
+    #define D_DIRECTION   "Основное направление"
 #endif
 
 #endif

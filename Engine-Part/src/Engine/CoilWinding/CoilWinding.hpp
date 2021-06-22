@@ -10,8 +10,8 @@
 #define COOLER_PIN 9
 
 #define STEPS 200 // Количество шагов на один оборот
-#define MSPEED 100 // Масимальная скорость
-#define SSPEED 100 // Базовая скорость
+#define MSPEED 300 // Масимальная скорость
+#define SSPEED 300 // Базовая скорость
 
 /// Намотка катушки
 namespace CoilWinding {
@@ -23,14 +23,6 @@ namespace CoilWinding {
 
     /// Скорость вращения
     static float VSpeed = 1.0f; // [0; 1]
-    /// Первый ли запуск после включения питания
-    static bool VFirstLoad = true;
-    /// Максимальное кол-во оборотов INT
-    static long int VMaxINT = 0; // size = 4 byte
-
-    /// Максимальное кол-во оборотов ARRAY
-    static int VMax[6] = { 0, 0, 0, 0, 0, 0, };
-
     /// Предыдущее кол-во оборотов
     double last_countTurn = 0.0f;
 
@@ -38,6 +30,9 @@ namespace CoilWinding {
     AccelStepper stepperMotor(AccelStepper::FULL4WIRE, 6, 5, 4, 3);
     /// Для вращения двигателей
     long positions[1] = { STEPS };
+
+    /// Установить скорость вращения
+    void SetSpeed(int speed);
 
     /// Создание
     void Init() {
@@ -48,8 +43,13 @@ namespace CoilWinding {
         pinMode(COOLER_PIN, OUTPUT);
 
         stepperMotor.setCurrentPosition(Data::dataContainer.currentPosition);
-        stepperMotor.setMaxSpeed(MSPEED); // Устанавливаем скорость вращения об./мин.
-        stepperMotor.setSpeed(-SSPEED); // Устанавливаем скорость вращения об./мин.
+        SetSpeed(Data::dataContainer.speed);
+    }
+
+    /// Установить скорость вращения
+    void SetSpeed(int speed) {
+        stepperMotor.setMaxSpeed(speed); // Устанавливаем скорость вращения об./мин.
+        stepperMotor.setSpeed(-speed); // Устанавливаем скорость вращения об./мин.
     }
 
     /// Установить блок катушек
@@ -69,18 +69,19 @@ namespace CoilWinding {
             Data::dataContainer.currentPosition = stepperMotor.currentPosition();
 
             if (Data::dataContainer.b_mode) {
-                if (double(Data::dataContainer.limit_countTurn) - (Data::dataContainer.b_direction ? 1 : -1) * Data::dataContainer.countTurn < 0) {
+                if (double(Data::dataContainer.limit_countTurn) - (Data::dataContainer.b_direction ? 1 : -1) * (Data::dataContainer.b_mainDirection ? 1 : -1) * Data::dataContainer.countTurn < 0) {
                     SetBlock(false);
                     return;
                 }
-                if (Data::dataContainer.countTurn < 0 && !Data::dataContainer.b_direction) {
+                // Закомментировать, если не нужно ограничить вращение нулем
+                if (Data::dataContainer.countTurn < 0 && ((!Data::dataContainer.b_direction && Data::dataContainer.b_mainDirection) || (Data::dataContainer.b_direction && !Data::dataContainer.b_mainDirection))) {
                     SetBlock(false);
                     return;
                 }
             }
 
             SetBlock(true);
-            stepperMotor.setSpeed(SSPEED * (Data::dataContainer.b_direction ? -1 : 1) * VSpeed);
+            stepperMotor.setSpeed(Data::dataContainer.speed * (Data::dataContainer.b_direction ? -1 : 1) * (Data::dataContainer.b_mainDirection ? 1 : -1) * VSpeed);
             stepperMotor.runSpeed();
         } else {
             SetBlock(false);

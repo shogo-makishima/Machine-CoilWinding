@@ -7,9 +7,7 @@
 class Page {
     public:
     /// Название меню
-    char* Name;
-    /// Название меню до перехода (не используется)
-    char* LastMenuName;
+    char Name[32];
 
     /// Список объектов
     UIObject* UIObjects[MAX_OBJECTS_ON_PAGE];
@@ -60,7 +58,7 @@ class Empty : public Page {
 
     /// Базовый конструктор
     Empty(char* getName) {
-        Name = getName;
+        strcpy(Name, getName);
         
         for (int i = 0; i < MAX_OBJECTS_ON_PAGE; i++) {
             UIObjects[i] = localObjects[i];

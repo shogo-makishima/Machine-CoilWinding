@@ -36,6 +36,7 @@ namespace CustomSerial {
 
     /// Вывести в debug port содержимое буффера
     void PrintBuffer() {
+        Serial.print("[DEBUG] ");
         for (byte i = 0; i < BUFFER_READ_SIZE; i++)
             Serial.print(BUFFER_READ[i]);
         Serial.println();
@@ -60,7 +61,7 @@ namespace CustomSerial {
         }
 
         if (strcmp(BUFFER_COMMAND[0], "D20") == 0) {
-            localCountTurn = atol(BUFFER_COMMAND[1]);
+            localCountTurn = atof(BUFFER_COMMAND[1]);
             if (wasLoad_CountAxis < 2) wasLoad_CountAxis++;
         }  else if (strcmp(BUFFER_COMMAND[0], "D21") == 0) {
             localCanMove = !(strcmp(BUFFER_COMMAND[1], "0") == 0);
@@ -71,10 +72,16 @@ namespace CustomSerial {
         } else if (strcmp(BUFFER_COMMAND[0], "D23") == 0) {
             localDirection = !(strcmp(BUFFER_COMMAND[1], "0") == 0);
             if (wasLoad_Direction < 2) wasLoad_Direction++;
-        }  else if (strcmp(BUFFER_COMMAND[0], "D24") == 0) {
+        } else if (strcmp(BUFFER_COMMAND[0], "D24") == 0) {
             VariableController::LimitFromFloat(atof(BUFFER_COMMAND[1]));
             if (wasLoad_Limit < 2) wasLoad_Limit++;
-        } 
+        } else if (strcmp(BUFFER_COMMAND[0], "D25") == 0) {
+            localMainDirection = !(strcmp(BUFFER_COMMAND[1], "0") == 0);
+            if (wasLoad_MainDirection < 2) wasLoad_MainDirection++;
+        } else if (strcmp(BUFFER_COMMAND[0], "D26") == 0) {
+            VariableController::SpeedFromInt(atoi(BUFFER_COMMAND[1]));
+            if (wasLoad_Speed < 2) wasLoad_Speed++;
+        }  
     }
 
     /// Считать байт из буфера

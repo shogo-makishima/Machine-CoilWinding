@@ -7,6 +7,7 @@
 class SettingsPage : public Page {
     private:
     Text manageSaves_Text = { MANAGE_SAVES };
+    Text mainDirection_Text = { D_DIRECTION };
 
     public:
     UIObject* localObjects[MAX_OBJECTS_ON_PAGE] = {
@@ -21,14 +22,17 @@ class SettingsPage : public Page {
             Serial1.println("M14");
         }),
 
-        new UIButton("Apply", { 170, 246, 140, 50 }, { 12, 30 }, APPLY, BLACK, WHITE_L_80, WHITE_L_5, []{}, [&, this] {
+        new UITextPanel("MainDirection", { 0, 70, 180, 50 }, { 12, 30 }, mainDirection_Text, BLACK, WHITE_L_100),
+        new UICheckBox("C_Direction", { 260, 70, 140, 50 }, { 12, 30 }, C_DIRECTION, BLACK, RED, GREEN, localMainDirection),
+
+        new UIButton("Back", { 170, 246, 140, 50 }, { 12, 30 }, BACK, BLACK, WHITE_L_80, WHITE_L_5, []{}, [&, this] {
             PAGES::ChangePageFormName("MainPage");
         }),
         NULL,
     };
 
     SettingsPage(char* getName) {
-        Name = getName;
+        strcpy(Name, getName);
         
         for (int i = 0; i < MAX_OBJECTS_ON_PAGE; i++) {
             UIObjects[i] = localObjects[i];
@@ -49,7 +53,7 @@ class SettingsPage : public Page {
             UIObjects[i]->Update();
         }
 
-        localCanMove = false;
+        // localCanMove = false;
     }
 };
 

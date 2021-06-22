@@ -52,13 +52,15 @@ static int loopDisplay(struct pt *pt) {
 void setup() {
     InitSerial();
 
-    while (wasLoad_Mode < 2 || wasLoad_CanMove < 2 || wasLoad_Direction < 2 || wasLoad_Limit < 2) {
+    while (wasLoad_Mode < 2 || wasLoad_CanMove < 2 || wasLoad_Direction < 2 || wasLoad_Limit < 2 || wasLoad_MainDirection < 2 || wasLoad_Speed < 2) {
         VariableController::Awake();
         Read();
     }
 
     InitDisplay();
     
+    
+
     PT_INIT(&pt1);
     PT_INIT(&pt2);
 }

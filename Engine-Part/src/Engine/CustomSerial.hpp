@@ -111,7 +111,7 @@ namespace CustomSerial {
             SendSettingsData();
         } else if (strcmp(BUFFER_COMMAND[0], "M20") == 0) {
             customSerial.print("D20 ");
-            customSerial.println((long)Data::dataContainer.countTurn);
+            customSerial.println(Data::dataContainer.countTurn);
         } else if (strcmp(BUFFER_COMMAND[0], "M21") == 0) {
             customSerial.print("D21 ");
             customSerial.println((Data::dataContainer.b_canMove) ? 1 : 0);
@@ -124,8 +124,19 @@ namespace CustomSerial {
         } else if (strcmp(BUFFER_COMMAND[0], "M24") == 0) {
             customSerial.print("D24 ");
             customSerial.println(Data::dataContainer.limit_countTurn);
-        }  else if (strcmp(BUFFER_COMMAND[0], "M30") == 0) {
+        } else if (strcmp(BUFFER_COMMAND[0], "M25") == 0) {
+            customSerial.print("D25 ");
+            customSerial.println(Data::dataContainer.b_mainDirection);
+        } else if (strcmp(BUFFER_COMMAND[0], "M26") == 0) {
+            customSerial.print("D26 ");
+            customSerial.println(Data::dataContainer.speed);
+        } else if (strcmp(BUFFER_COMMAND[0], "M30") == 0) {
             Data::dataContainer.limit_countTurn = atoi(BUFFER_COMMAND[1]) / 10.0f;
+        } else if (strcmp(BUFFER_COMMAND[0], "M31") == 0) {
+            Data::dataContainer.b_mainDirection = !(strcmp(BUFFER_COMMAND[1], "0") == 0);
+        } else if (strcmp(BUFFER_COMMAND[0], "M32") == 0) {
+            Data::dataContainer.speed = atoi(BUFFER_COMMAND[1]);
+            CoilWinding::SetSpeed(Data::dataContainer.speed);
         }
     }
 

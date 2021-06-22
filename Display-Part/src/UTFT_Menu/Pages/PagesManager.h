@@ -24,7 +24,6 @@ namespace PAGES {
         for (int i = 0; i < MAX_PAGES; i++) {
             if (Pages[i] == NULL) break;
             Pages[i]->Awake();
-            // Serial.println(String(Pages[i]->Name) + " == " + String(name) + ": " + ((strcmp(Pages[i]->Name, name) == 0) ? "true" : "false"));
         }
     }
 
@@ -32,12 +31,12 @@ namespace PAGES {
     void ChangePageFormName(const char* name) {
         for (int i = 0; i < MAX_PAGES; i++) {
             if (Pages[i] == NULL) break;
-            else if (strcmp(Pages[i]->Name, name) == 0) { 
+            else if (strcmp(Pages[i]->Name, name) == 0) {
+                TOUCH.b_canReadTouch = false;
+                TOUCH.deathTimer.Reset();
                 page = Pages[i];
                 break;
             }
-            
-            // Serial.println(String(Pages[i]->Name) + " == " + String(name) + ": " + ((strcmp(Pages[i]->Name, name) == 0) ? "true" : "false"));
         }
         
         if (page != NULL) page->Start();
