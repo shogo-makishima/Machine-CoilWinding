@@ -9,6 +9,7 @@
 #define STEPS 200 // Количество шагов на один оборот
 #define MSPEED 300 // Масимальная скорость
 #define SSPEED 300 // Базовая скорость
+#define SSCALE 2
 
 /// Намотка катушки
 namespace CoilWinding {
@@ -36,13 +37,14 @@ namespace CoilWinding {
         pinMode(PEDAL_PIN, INPUT);
 
         stepperMotor.setCurrentPosition(Data::dataContainer.currentPosition);
-        SetSpeed(Data::dataContainer.speed);
+        // stepperMotor.setMaxSpeed(1000 * SSCALE);
+        SetSpeed(Data::dataContainer.speed * SSCALE);
     }
 
     /// Установить скорость вращения
     void SetSpeed(int speed) {
-        stepperMotor.setMaxSpeed(Data::dataContainer.speed); // Устанавливаем скорость вращения об./мин.
-        stepperMotor.setSpeed(-Data::dataContainer.speed); // Устанавливаем скорость вращения об./мин.
+        stepperMotor.setMaxSpeed(speed); // Устанавливаем скорость вращения об./мин.
+        stepperMotor.setSpeed(speed); // Устанавливаем скорость вращения об./мин.
     }
 
     /// Перемещение
@@ -52,7 +54,7 @@ namespace CoilWinding {
         //VSpeed = 0.25f;
 
         if (VSpeed != 0) {
-            Data::dataContainer.countTurn = double(-stepperMotor.currentPosition()) / double(STEPS);
+            Data::dataContainer.countTurn = (double(-stepperMotor.currentPosition()) / double(STEPS)) / SSCALE;
             Data::dataContainer.currentPosition = stepperMotor.currentPosition();
 
             if (Data::dataContainer.b_mode) {
@@ -67,7 +69,7 @@ namespace CoilWinding {
                 }
             }
 
-            stepperMotor.setSpeed(Data::dataContainer.speed * (Data::dataContainer.b_direction ? -1 : 1) * (Data::dataContainer.b_mainDirection ? 1 : -1) * VSpeed);
+            SetSpeed(Data::dataContainer.speed * SSCALE * (Data::dataContainer.b_direction ? -1 : 1) * (Data::dataContainer.b_mainDirection ? 1 : -1) * VSpeed);
             stepperMotor.runSpeed();
         } else {
         }

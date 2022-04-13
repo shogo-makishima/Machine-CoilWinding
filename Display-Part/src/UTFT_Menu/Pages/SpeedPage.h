@@ -5,6 +5,8 @@
 #include "PagesManager.h"
 #include "UTFT_Menu/Menus.h"
 
+#define MAX_SPEED_CONFIG_0 1
+
 class SpeedPage : public Page {
     private:
     int last_speedUI[SPEED_LIST_LENGHT] = {  0, 0, 0, 0 };
@@ -106,12 +108,12 @@ class SpeedPage : public Page {
     void SetSpeedButtonsPress(int index, bool direction) {
         localSpeedMenu[index] = localSpeedMenu[index] + (1 * ((direction) ? 1 : -1));
         if (index == 0) {
-            localSpeedMenu[index] = Math::CycleClamp(0, 1, localSpeedMenu[index]);
-            if (localSpeedMenu[index] == 1) {
+            localSpeedMenu[index] = Math::CycleClamp(0, MAX_SPEED_CONFIG_0, localSpeedMenu[index]);
+            if (localSpeedMenu[index] == MAX_SPEED_CONFIG_0) {
                 for (int i = 1; i < SPEED_LIST_LENGHT; i++)
                     localSpeedMenu[i] = 0;
             }
-        } else if (index != 0 && localSpeedMenu[0] == 1) localSpeedMenu[index] = 0; 
+        } else if (index != 0 && localSpeedMenu[0] == MAX_SPEED_CONFIG_0) localSpeedMenu[index] = 0; 
         else localSpeedMenu[index] = Math::CycleClamp(0, 9, localSpeedMenu[index]);
     }
 
