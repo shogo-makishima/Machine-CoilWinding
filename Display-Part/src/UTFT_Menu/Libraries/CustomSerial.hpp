@@ -81,7 +81,7 @@ namespace CustomSerial {
         } else if (strcmp(BUFFER_COMMAND[0], "D26") == 0) {
             VariableController::SpeedFromInt(atoi(BUFFER_COMMAND[1]));
             if (wasLoad_Speed < 2) wasLoad_Speed++;
-        }  
+        }
     }
 
     /// Считать байт из буфера

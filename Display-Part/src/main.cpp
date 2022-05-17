@@ -26,14 +26,7 @@ static int loopMotor(struct pt *pt) {
         }
     PT_END(pt);
 }
-/*
-extern "C" char* sbrk(int incr);
 
-int freeRAM() {
-  char top;
-  return &top - reinterpret_cast<char*>(sbrk(0));
-}
-*/
 static struct pt pt2;
 static int loopDisplay(struct pt *pt) {
     static unsigned long lastTimeBlink = 0;
@@ -59,12 +52,12 @@ void setup() {
         Read();
     }
 
-    InitDisplay();
-    
-    
+    InitDisplay();  
 
     PT_INIT(&pt1);
     PT_INIT(&pt2);
+
+    Serial1.println("M33");
 }
 
 void loop() {

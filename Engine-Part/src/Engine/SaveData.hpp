@@ -3,6 +3,11 @@
 
 /// Управление данными для сохранеия
 namespace Data {
+    /// Инициализирован ли экран
+    bool b_isInit = false;
+    /// Инициализирован ли экран
+    bool b_isBlock = false;
+
     /// Структура контейнера данных
     struct DataContainer {
         double countTurn;

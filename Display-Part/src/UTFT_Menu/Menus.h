@@ -60,6 +60,8 @@ static TouchEmulator TOUCH = TouchEmulator();
 static void InitSerial() {
     Serial.begin(115200);
     Serial1.begin(76800);
+
+    Serial1.readString();
 }
 
 /// Запустить дисплей

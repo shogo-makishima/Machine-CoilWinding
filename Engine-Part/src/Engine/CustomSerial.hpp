@@ -137,6 +137,12 @@ namespace CustomSerial {
         } else if (strcmp(BUFFER_COMMAND[0], "M32") == 0) {
             Data::dataContainer.speed = atoi(BUFFER_COMMAND[1]);
             CoilWinding::SetSpeed(Data::dataContainer.speed);
+        } else if (strcmp(BUFFER_COMMAND[0], "M33") == 0) {
+            Data::b_isInit = true;
+        } else if (strcmp(BUFFER_COMMAND[0], "M34") == 0) {
+            Data::b_isBlock = true;
+        } else if (strcmp(BUFFER_COMMAND[0], "M35") == 0) {
+            Data::b_isBlock = false;
         }
     }
 

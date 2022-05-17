@@ -60,6 +60,7 @@ class MainPage : public Page {
 
     void Start() override {
         // counterText.SetText(0);
+        Serial1.println("M35");
 
         UpdateLimitText();
         RepaintAll();

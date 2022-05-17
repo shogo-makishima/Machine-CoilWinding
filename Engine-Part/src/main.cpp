@@ -34,10 +34,12 @@ void loop() {
 }
 
 void SendData() {
+	if (!Data::b_isInit) return;
+
 	if (Math::Round(Data::dataContainer.countTurn, 1) != Math::Round(CoilWinding::last_countTurn, 1)) {
         CustomSerial::customSerial.print("D20 ");
-
-        CustomSerial::customSerial.println(Math::Round(Data::dataContainer.countTurn, 1), 1);
+		// Math::Round(Data::dataContainer.countTurn, 1) CoilWinding::pedal.currentValue, 1
+        CustomSerial::customSerial.println(Math::Round(Data::dataContainer.countTurn, 1));
 
 		sendDataTimer.Reset();
     }

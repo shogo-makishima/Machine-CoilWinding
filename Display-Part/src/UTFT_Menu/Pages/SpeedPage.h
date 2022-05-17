@@ -84,6 +84,8 @@ class SpeedPage : public Page {
     }
 
     void Start() override {
+        Serial1.println("M34");
+
         for (int i = 0; i < SPEED_LIST_LENGHT; i++) SetTextByIndex(i);
 
         RepaintAll();

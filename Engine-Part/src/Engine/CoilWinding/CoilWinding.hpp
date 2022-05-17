@@ -22,7 +22,7 @@ namespace CoilWinding {
     /// Скорость вращения
     static float VSpeed = 1.0f; // [0; 1]
     /// Предыдущее кол-во оборотов
-    double last_countTurn = 0.0f;
+    double last_countTurn = -999.0f;
 
     /// Шаговый двигатель
     AccelStepper stepperMotor(1, 4, 3);
@@ -35,6 +35,9 @@ namespace CoilWinding {
     /// Создание
     void Init() {
         pinMode(PEDAL_PIN, INPUT);
+        
+        pinMode(2, OUTPUT);
+        digitalWrite(2, HIGH);
 
         stepperMotor.setCurrentPosition(Data::dataContainer.currentPosition);
         // stepperMotor.setMaxSpeed(1000 * SSCALE);
@@ -77,7 +80,7 @@ namespace CoilWinding {
     
     /// Обновление
     void Update() {
-        if (Data::dataContainer.b_canMove) {
+        if (Data::dataContainer.b_canMove && Data::b_isInit && !Data::b_isBlock) {
             pedal.Update();
             Move();
         } else {
